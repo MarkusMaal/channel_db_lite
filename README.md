@@ -1,5 +1,7 @@
 # Kanali andmebaas Lite
 
+![screenshot](image.png)
+
 Minimaalne versioon kanali andmebaasist, mis on kirjutatud Yii2 raamistikus.
 
 Projekti struktuur
