@@ -1,5 +1,8 @@
 <?php
 use yii\helpers\Html;
+/** @var yii\web\View $this */
+
+$this->title = 'Ideed - '.Html::encode($idea->Video);
 $check = "<span style=\"display: inline-block; width: 2em;\">&#x2714;</span>";
 $cross = "<span style=\"display: inline-block; width: 2em;\">&#x274C;</span>";
 ?>

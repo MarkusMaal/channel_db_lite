@@ -1,6 +1,9 @@
 <?php
 use yii\helpers\Html;
 use yii\widgets\LinkPager;
+/** @var yii\web\View $this */
+
+$this->title = 'Ideed' . (isset($_GET["page"])?" - Leht ".$_GET["page"]:"");
 ?>
 <?= LinkPager::widget([
     'pagination' => $pagination,
@@ -17,7 +20,7 @@ use yii\widgets\LinkPager;
     <ul class='list-group list-group-flush'>
         <?php foreach ($ideas as $idea): ?>
             <li class='list-group-item d-flex justify-content-between align-items-start'>
-                <a href="index.php?r=ideas%2Fview&id=<?= $idea->id ?>" style="text-decoration: none;">
+                <a href="/ideas/view/<?= $idea->id ?>" style="text-decoration: none;">
                     <div class="ms-2 me-auto">
                         <div class="fw-bold"><?= $idea->Video ?></div>
                         <?= $idea->Kanal ?>

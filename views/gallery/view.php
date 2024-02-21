@@ -1,5 +1,8 @@
 <?php
 use yii\helpers\Html;
+/** @var yii\web\View $this */
+
+$this->title = 'Kanali galerii - '.Html::encode($channel->Kanal);
 $check = "<span style=\"display: inline-block; width: 2em;\">&#x2714;</span>";
 $cross = "<span style=\"display: inline-block; width: 2em;\">&#x274C;</span>";
 ?>
@@ -12,8 +15,8 @@ $cross = "<span style=\"display: inline-block; width: 2em;\">&#x274C;</span>";
             <?php
                 for ( $logoid = 1; $logoid < 999; $logoid++ ) {
                     if (file_exists("gallery/logos/".$channel->ID."/".$logoid.".png")) {
-                        echo "<a href='gallery/logos/".$channel->ID."/".$logoid.".png'>";
-                        echo "<img src='gallery/logos/".$channel->ID."/".$logoid.".png' style='width: 200px;'>";
+                        echo "<a href='/gallery/logos/".$channel->ID."/".$logoid.".png'>";
+                        echo "<img src='/gallery/logos/".$channel->ID."/".$logoid.".png' style='width: 200px;'>";
                         echo "</a>";
                     }
                 }

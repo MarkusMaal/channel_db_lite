@@ -1,6 +1,9 @@
 <?php
 use yii\helpers\Html;
 use yii\widgets\LinkPager;
+/** @var yii\web\View $this */
+
+$this->title = 'Kanali gallerii' . (isset($_GET["page"])?" - Leht ".$_GET["page"]:"");
 ?>
 <?= LinkPager::widget([
     'pagination' => $pagination,
@@ -24,10 +27,10 @@ use yii\widgets\LinkPager;
                 $logoid--;
             ?>
             <div class='col'>
-                <a href="index.php?r=gallery%2Fview&id=<?= $channel->ID ?>" style="text-decoration: none;">
+                <a href="/gallery/view/<?= $channel->ID ?>" style="text-decoration: none;">
                     <div class='card my-5 mx-auto' style='width: 18rem;'>
                         <img class="card-img-top" style="width: 100%;" src="<?=
-                    (file_exists("gallery/logos/{$channel->ID}/$logoid.png")?"gallery/logos/{$channel->ID}/$logoid.png":"")
+                    (file_exists("gallery/logos/{$channel->ID}/$logoid.png")?"/gallery/logos/{$channel->ID}/$logoid.png":"")
                     ?>">
                         <div class="card-body">
                             <h5 class="card-title"><?= Html::encode("{$channel->Kanal}") ?></h5>

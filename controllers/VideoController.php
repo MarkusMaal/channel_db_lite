@@ -32,4 +32,8 @@ class VideoController extends Controller
             'video' => $video,
         ]);
     }
+
+    public static function changeTitle($view) {
+        $view->title = "Video";
+    }
 }
