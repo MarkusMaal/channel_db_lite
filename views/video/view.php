@@ -45,7 +45,7 @@ $cross = "<span style=\"display: inline-block; width: 2em;\">&#x274C;</span>";
                 <?php
                     foreach ($tags as $tag) {
                         $tag = trim($tag);
-                        echo "<span class=\"bg-secondary mx-1 badge badge-pill badge-primary\">".$tag."</span>";
+                        echo "<a href='../search?q=$tag'><span class=\"bg-secondary mx-1 badge badge-pill badge-primary\">".$tag."</span></a>";
                     }
                 ?>
             </p>
