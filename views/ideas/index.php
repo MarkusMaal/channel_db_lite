@@ -20,7 +20,7 @@ $this->title = 'Ideed' . (isset($_GET["page"])?" - Leht ".$_GET["page"]:"");
     <ul class='list-group list-group-flush'>
         <?php foreach ($ideas as $idea): ?>
             <li class='list-group-item d-flex justify-content-between align-items-start'>
-                <a href="/ideas/view/<?= $idea->id ?>" style="text-decoration: none;">
+                <a href="view/<?= $idea->id ?>" style="text-decoration: none;">
                     <div class="ms-2 me-auto">
                         <div class="fw-bold"><?= $idea->Video ?></div>
                         <?= $idea->Kanal ?>

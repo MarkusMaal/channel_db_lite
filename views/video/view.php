@@ -9,7 +9,7 @@ $cross = "<span style=\"display: inline-block; width: 2em;\">&#x274C;</span>";
 <div class='container mt-2 mb-2'>
     <div class='card mx-auto' style="width: 90%;">
         <a class="card-img-top text-center" href="/thumbs/<?=$video->ID?>.jpg">
-            <img width="500" src="/thumbs/<?=$video->ID?>.jpg">
+            <img width="500" src="../../thumbs/<?=$video->ID?>.jpg">
         </a>
         <div class="card-body">
             <h1 class="card-title"><?= Html::encode("{$video->Video}") ?></h1>

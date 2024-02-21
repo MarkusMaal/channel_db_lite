@@ -27,10 +27,10 @@ $this->title = 'Kanali gallerii' . (isset($_GET["page"])?" - Leht ".$_GET["page"
                 $logoid--;
             ?>
             <div class='col'>
-                <a href="/gallery/view/<?= $channel->ID ?>" style="text-decoration: none;">
+                <a href="view/<?= $channel->ID ?>" style="text-decoration: none;">
                     <div class='card my-5 mx-auto' style='width: 18rem;'>
                         <img class="card-img-top" style="width: 100%;" src="<?=
-                    (file_exists("gallery/logos/{$channel->ID}/$logoid.png")?"/gallery/logos/{$channel->ID}/$logoid.png":"")
+                    (file_exists("gallery/logos/{$channel->ID}/$logoid.png")?"logos/{$channel->ID}/$logoid.png":"")
                     ?>">
                         <div class="card-body">
                             <h5 class="card-title"><?= Html::encode("{$channel->Kanal}") ?></h5>
