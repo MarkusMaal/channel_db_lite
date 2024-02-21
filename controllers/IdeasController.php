@@ -16,7 +16,7 @@ class IdeasController extends Controller
             'totalCount' => $query->count(),
         ]);
 
-        $ideas = $query->orderBy('id DESC')
+        $ideas = $query->orderBy('id '.($_GET["ord"]??'DESC'))
         ->offset($pagination->offset)
         ->limit($pagination->limit)
         ->all();

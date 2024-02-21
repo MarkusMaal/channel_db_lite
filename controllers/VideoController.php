@@ -16,7 +16,7 @@ class VideoController extends Controller
             'totalCount' => $query->count(),
         ]);
 
-        $videos = $query->orderBy('Kuupäev DESC')
+        $videos = $query->orderBy('Kuupäev '.($_GET["ord"]??'DESC'))
         ->offset($pagination->offset)
         ->limit($pagination->limit)
         ->all();

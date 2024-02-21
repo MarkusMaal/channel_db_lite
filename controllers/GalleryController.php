@@ -16,7 +16,7 @@ class GalleryController extends Controller
             'totalCount' => $query->count(),
         ]);
 
-        $channels = $query->orderBy('Loomiskuupäev DESC')
+        $channels = $query->orderBy('Loomiskuupäev '.($_GET["ord"]??'DESC'))
         ->offset($pagination->offset)
         ->limit($pagination->limit)
         ->all();

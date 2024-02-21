@@ -9,6 +9,7 @@ use yii\bootstrap5\Breadcrumbs;
 use yii\bootstrap5\Html;
 use yii\bootstrap5\Nav;
 use yii\bootstrap5\NavBar;
+use yii\widgets\ActiveForm;
 
 AppAsset::register($this);
 
@@ -34,7 +35,7 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
     NavBar::begin([
         'brandLabel' => Yii::$app->name,
         'brandUrl' => Yii::$app->homeUrl,
-        'options' => ['class' => 'navbar-expand-md navbar-light bg-light fixed-top']
+        'options' => ['class' => 'navbar-expand-md navbar-dark bg-primary fixed-top']
     ]);
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav'],

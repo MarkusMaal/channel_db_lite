@@ -5,6 +5,9 @@ use yii\widgets\LinkPager;
 
 $this->title = 'Ideed' . (isset($_GET["page"])?" - Leht ".$_GET["page"]:"");
 ?>
+<div class="mx-auto text-center">
+<?= "<a class=\"btn btn-secondary m-2 text-center\" href=\"?ord=" . (!empty($_GET["ord"])?(($_GET["ord"] == "DESC")?"ASC\">Õigetpidi järjestus":"DESC\">Tagurpidi järjestus"):"ASC\">Õigetpidi järjestus") . "</a>" ?>
+</div>
 <?= LinkPager::widget([
     'pagination' => $pagination,
     'linkOptions'=> ['class'=> 'page-link'],
