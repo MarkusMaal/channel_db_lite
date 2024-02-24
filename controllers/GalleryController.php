@@ -8,9 +8,11 @@ use app\models\Gallery;
 
 class GalleryController extends Controller
 {
-    public function actionIndex()
+    public function actionIndex($q = '', $del = '-1')
     {
-        $query = Gallery::find();
+        $query = Gallery::find()
+        ->where(["like", "CONCAT(Kanal,Kirjeldus,Loomiskuupäev,URL)", $q]);
+        if ($del != "-1") $query->andWhere("Kustutatud=:del", ["del" => $del]);
         $pagination = new Pagination([
             'defaultPageSize' => 20,
             'totalCount' => $query->count(),

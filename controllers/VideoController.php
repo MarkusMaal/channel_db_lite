@@ -63,14 +63,14 @@ class VideoController extends Controller
     }
 
     // advanced search (url: adv-search)
-    public function actionAdvSearch($q = "", $ch = "", $del = "", $sub = "", $pub = "", $live = "", $hd = "", $cat = "") {
+    public function actionAdvSearch($q = "", $ch = "", $del = "-1", $sub = "-1", $pub = "-1", $live = "-1", $hd = "-1", $cat = "") {
         $query = Video::find()
         ->where(["like", "CONCAT(Video, Kanal, Kirjeldus, URL, Kuupäev, Filename, Category, Tags, OdyseeURL)", $q]);
-        if ($del != "") $query->andWhere("Kustutatud=:del", ["del" => $del]);
-        if ($sub != "") $query->andWhere("Subtiitrid=:sub", ["sub" => $sub]);
-        if ($pub != "") $query->andWhere("Ülekanne=:pub", ["pub" => $pub]);
-        if ($live != "") $query->andWhere("Ülekanne=:live", ["live" => $live]);
-        if ($hd != "") $query->andWhere("HD=:hd", ["hd" => $hd]);
+        if ($del != "-1") $query->andWhere("Kustutatud=:del", ["del" => $del]);
+        if ($sub != "-1") $query->andWhere("Subtiitrid=:sub", ["sub" => $sub]);
+        if ($pub != "-1") $query->andWhere("Ülekanne=:pub", ["pub" => $pub]);
+        if ($live != "-1") $query->andWhere("Ülekanne=:live", ["live" => $live]);
+        if ($hd != "-1") $query->andWhere("HD=:hd", ["hd" => $hd]);
         if ($ch != "") $query->andWhere("Kanal=:ch", ["ch" => $ch]);
         if ($cat != "") $query->andWhere("Category=:cat", ["cat" => $cat]);
         $pagination = new Pagination([

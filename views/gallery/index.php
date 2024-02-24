@@ -6,12 +6,26 @@ require_once(dirname(__DIR__, 2)."/helpers/Filters.php");
 /** @var yii\web\View $this */
 
 $this->title = 'Kanali gallerii' . (isset($_GET["page"])?" - Leht ".$_GET["page"]:"");
-$preurl = Url::to(["/gallery/index/"]);
+$preurl = Yii::$app->request->getUrl();
 $ord = isset($_GET["ord"]) ? $_GET["ord"] : "DESC";
 $nord = $ord == "ASC" ? "DESC" : "ASC";
 ?>
 <div class="mx-auto text-center">
-<?= "<a class=\"btn btn-secondary m-2 text-center\" href=\"" . Filters::AddFilter($preurl, "ord", $nord) . "\">". (($nord == "ASC")?"Õigetpidi järjestus":"Tagurpidi järjestus") . "</a>" ?>
+<?= "<a class=\"btn btn-secondary m-2 me-1 text-center\" href=\"" . Filters::AddFilter($preurl, "ord", $nord) . "\">". (($nord == "ASC")?"Õigetpidi järjestus":"Tagurpidi järjestus") . "</a>" ?>
+<?php
+$filterset = [
+    "q" => [
+        "type" => "string",
+        "label" => "Märksõna(d)"
+    ],
+    "del" => [
+        "type" => "boolean",
+        "label" => "Kustutatud"
+    ],
+];
+echo Filters::DisplayBooleanSelectors($preurl, $filterset);
+echo Filters::DisplayFilters($filterset);
+?>
 </div>
 <?= LinkPager::widget([
     'pagination' => $pagination,

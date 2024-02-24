@@ -86,3 +86,27 @@ a.desc:after {
 .form-group {
     margin-bottom: 1rem;
 }
+
+.form-control, .form-control:focus {
+    color: white;
+    margin-left: 1em;
+}
+
+.form-control::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: white;
+    opacity: 0.5;
+}
+
+.form-control:-ms-input-placeholder { /* Internet Explorer 10-11 */
+    color: white;
+    opacity: 0.5;
+}
+
+.form-control::-ms-input-placeholder { /* Microsoft Edge */
+    color: white;
+    opacity: 0.5;
+}
+
+a {
+    text-decoration: none;
+}

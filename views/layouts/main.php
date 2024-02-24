@@ -40,11 +40,24 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav'],
         'items' => [
-            ['label' => 'Videod', 'url' => ['/video/index']],
-            ['label' => 'Ideed', 'url' => ['/ideas/index']],
+            ['label' => 'Videod', 'url' => ['/video/adv-search']],
+            ['label' => 'Ideed', 'url' => ['/ideas/adv-search']],
             ['label' => 'Galerii', 'url' => ['/gallery/index']],
         ]
     ]);
+?>
+    <form class="d-flex dark" method="get">
+        <?php
+            foreach ($_GET as $key => $value) { 
+                if ($key != "q") {
+                    echo '<input type="hidden" name="'. $key .'" value="'. $value . '">';
+                }
+            }
+        ?>
+        <input class="form-control bg-primary me-2" type="search" placeholder="Märksõna(d)" aria-label="Keywords" name="q" value="<?= $_GET["q"]??"" ?>">
+        <button class="btn btn-outline-light text-white" type="submit">Otsi</button>
+    </form>
+<?php
     NavBar::end();
     ?>
 </header>
