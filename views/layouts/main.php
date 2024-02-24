@@ -50,11 +50,11 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
         <?php
             foreach ($_GET as $key => $value) { 
                 if ($key != "q") {
-                    echo '<input type="hidden" name="'. $key .'" value="'. $value . '">';
+                    echo '<input type="hidden" name="'. Html::encode($key) .'" value="'. Html::encode($value) . '">';
                 }
             }
         ?>
-        <input class="form-control bg-primary me-2" type="search" placeholder="Märksõna(d)" aria-label="Keywords" name="q" value="<?= $_GET["q"]??"" ?>">
+        <input class="form-control bg-primary me-2" type="search" placeholder="Märksõna(d)" aria-label="Keywords" name="q" value="<?= (isset($_GET["q"])?Html::encode($_GET["q"]):"") ?>">
         <button class="btn btn-outline-light text-white" type="submit">Otsi</button>
     </form>
 <?php
