@@ -1,34 +1,21 @@
 <?php
 use yii\helpers\Html;
+use yii\helpers\Url;
 use yii\widgets\LinkPager;
+require_once(dirname(__DIR__, 2)."/helpers/Filters.php");
 
 /** @var yii\web\View $this */
 
 $this->title = 'Videod' . (isset($_GET["page"])?" - Leht ".$_GET["page"]:"");
 $baseurl = str_replace($_SERVER["DOCUMENT_ROOT"], "", Yii::$app->basePath);
 
-function ClearFilter($preurl, $name) {
-    $name = str_replace("+", "%2B", $name);
-    if (!isset($_GET[$name])) {return $preurl;}
-    return "<a href='".str_replace("&".$name."=".$_GET[$name], "", str_replace("?".$name."=".$_GET[$name], "", $preurl))."'>";
-}
-
-function AddFilter($preurl, $name, $value) {
-    $preurl = str_replace("'>", "", str_replace("<a href='", "", ClearFilter($preurl, $name)));
-    if (str_contains($preurl, "?")) {
-        return $preurl."&$name=$value";
-    } else {
-        return $preurl."?$name=$value";
-    }
-}
 ?>
 <div class="mx-auto text-center">
 <?php
-$url = $_SERVER["REQUEST_URI"];
-$params = "?".substr($url, strrpos($url, '?') + 1);
-$pref = (str_contains($params, "=")?"&":"?");
-$preurl = str_replace("&ord=".($_GET["ord"]??"DESC"), "", $url);
-echo "<a class=\"btn btn-secondary m-2 text-center\" href=\"$preurl{$pref}ord=" . (!empty($_GET["ord"])?(($_GET["ord"] == "DESC")?"ASC\">Õigetpidi järjestus":"DESC\">Tagurpidi järjestus"):"ASC\">Õigetpidi järjestus") . "</a>";
+$preurl = Url::to(["/video/adv-search/"]);
+$ord = isset($_GET["ord"]) ? $_GET["ord"] : "DESC";
+$nord = $ord == "ASC" ? "DESC" : "ASC";
+echo "<a class=\"btn btn-secondary m-2 text-center\" href=\"".Filters::AddFilter($preurl, "ord", $nord) . (!empty($_GET["ord"])?(($_GET["ord"] == "DESC")?"\">Õigetpidi järjestus":"\">Tagurpidi järjestus"):"\">Õigetpidi järjestus") . "</a>";
 if (!isset($_GET["cat"])) {
 ?>
 <div class="dropdown d-inline">
@@ -38,7 +25,7 @@ if (!isset($_GET["cat"])) {
     <ul class="dropdown-menu" aria-labelledby="categorySelectButton">
 
         <?php foreach ($categories as $category) { ?>
-            <li><a class="dropdown-item" href="<?= AddFilter(str_replace("video/index", "video/adv-search", $preurl), "cat", $category->Category); ?>"><?= $category->Category ?></a></li>
+            <li><a class="dropdown-item" href="<?= Filters::AddFilter(str_replace("video/index", "video/adv-search", $preurl), "cat", $category->Category); ?>"><?= $category->Category ?></a></li>
         <?php } ?>
     </ul>
 </div>
@@ -53,7 +40,7 @@ if (!isset($_GET["ch"])) {
     <ul class="dropdown-menu" aria-labelledby="categorySelectButton">
 
         <?php foreach ($channels as $channel) { ?>
-            <li><a class="dropdown-item" href="<?= AddFilter(str_replace("video/index", "video/adv-search", $preurl), "ch", str_replace("+", "%2B", $channel->Kanal)); ?>"><?= $channel->Kanal ?></a></li>
+            <li><a class="dropdown-item" href="<?= Filters::AddFilter(str_replace("video/index", "video/adv-search", $preurl), "ch", str_replace("+", "%2B", $channel->Kanal)); ?>"><?= $channel->Kanal ?></a></li>
         <?php } ?>
     </ul>
 </div>
@@ -61,15 +48,15 @@ if (!isset($_GET["ch"])) {
 }
 $o = "<p>Filtrid:&nbsp;";
 $hasFilters = false;
-if (isset($_GET["search"])) { $o .= ClearFilter($preurl, "search")."<span class='badge bg-secondary mx-2'>".$_GET["search"]."</span></a>"; $hasFilters = true; }
-if (isset($_GET["ch"])) { $o .= ClearFilter($preurl, "ch")."<span class='badge bg-secondary mx-2'>Kanal: ".$_GET["ch"]."</span></a>"; $hasFilters = true; }
-if (isset($_GET["del"])) { $o .= ClearFilter($preurl, "del")."<span class='badge bg-secondary mx-2'> ".($_GET["del"]=="1"?"Kustutatud":"Ei ole kustutatud")."</span></a>"; $hasFilters = true; }
-if (isset($_GET["live"])) { $o .= ClearFilter($preurl, "live")."<span class='badge bg-secondary mx-2'> ".($_GET["live"]=="1"?"Otseülekanne":"Ei ole otseülekanne")."</span></a>"; $hasFilters = true; }
-if (isset($_GET["hd"])) { $o .= ClearFilter($preurl, "hd")."<span class='badge bg-secondary mx-2'> ".($_GET["hd"]=="1"?"Kõrge kvaliteet":"Madal kvaliteet")."</span></a>"; $hasFilters = true; }
-if (isset($_GET["sub"])) { $o .= ClearFilter($preurl, "sub")."<span class='badge bg-secondary mx-2'> ".($_GET["hd"]=="1"?"Sisaldab subtiitreid":"Subtiitriteta")."</span></a>"; $hasFilters = true; }
-if (isset($_GET["pub"])) { $o .= ClearFilter($preurl, "pub")."<span class='badge bg-secondary mx-2'> ".($_GET["hd"]=="1"?"Avalik":"Pole avalik")."</span></a>"; $hasFilters = true; }
-if (isset($_GET["cat"])) { $o .= ClearFilter($preurl, "cat")."<span class='badge bg-secondary mx-2'> Kategooria: ".$_GET["cat"]."</span></a>"; $hasFilters = true; }
-if (isset($_GET["q"])) { $o .= ClearFilter($preurl, "q")."<span class='badge bg-secondary mx-2'>Märksõna(d): ".$_GET["q"]."</span></a>"; $hasFilters = true; }
+if (isset($_GET["search"])) { $o .= "<a href='".Filters::ClearFilter($preurl, "search")."'>"."<span class='badge bg-secondary mx-2'>".$_GET["search"]."</span></a>"; $hasFilters = true; }
+if (isset($_GET["ch"])) { $o .= "<a href='".Filters::ClearFilter($preurl, "ch")."'>"."<span class='badge bg-secondary mx-2'>Kanal: ".$_GET["ch"]."</span></a>"; $hasFilters = true; }
+if (isset($_GET["del"])) { $o .= "<a href='".Filters::ClearFilter($preurl, "del")."'>"."<span class='badge bg-secondary mx-2'> ".($_GET["del"]=="1"?"Kustutatud":"Ei ole kustutatud")."</span></a>"; $hasFilters = true; }
+if (isset($_GET["live"])) { $o .= "<a href='".Filters::ClearFilter($preurl, "live")."'>"."<span class='badge bg-secondary mx-2'> ".($_GET["live"]=="1"?"Otseülekanne":"Ei ole otseülekanne")."</span></a>"; $hasFilters = true; }
+if (isset($_GET["hd"])) { $o .= "<a href='".Filters::ClearFilter($preurl, "hd")."'>"."<span class='badge bg-secondary mx-2'> ".($_GET["hd"]=="1"?"Kõrge kvaliteet":"Madal kvaliteet")."</span></a>"; $hasFilters = true; }
+if (isset($_GET["sub"])) { $o .= "<a href='".Filters::ClearFilter($preurl, "sub")."'>"."<span class='badge bg-secondary mx-2'> ".($_GET["hd"]=="1"?"Sisaldab subtiitreid":"Subtiitriteta")."</span></a>"; $hasFilters = true; }
+if (isset($_GET["pub"])) { $o .= "<a href='".Filters::ClearFilter($preurl, "pub")."'>"."<span class='badge bg-secondary mx-2'> ".($_GET["hd"]=="1"?"Avalik":"Pole avalik")."</span></a>"; $hasFilters = true; }
+if (isset($_GET["cat"])) { $o .= "<a href='".Filters::ClearFilter($preurl, "cat")."'>"."<span class='badge bg-secondary mx-2'> Kategooria: ".$_GET["cat"]."</span></a>"; $hasFilters = true; }
+if (isset($_GET["q"])) { $o .= "<a href='". Filters::ClearFilter($preurl, "q")."'>"."<span class='badge bg-secondary mx-2'>Märksõna(d): ".$_GET["q"]."</span></a>"; $hasFilters = true; }
 $o .= "</p>";
 if ($hasFilters) {
     echo $o;
@@ -90,9 +77,9 @@ if ($hasFilters) {
 <div class='row mx-auto'>
     <?php foreach ($videos as $video): ?>
         <div class='col'>
-            <a href="view/<?= $video->ID ?>" style="text-decoration: none;">
+            <a href="<?= Url::to(["/video/view/", 'id' => $video->ID]) ?>" style="text-decoration: none;">
                 <div class='card my-5 mx-auto' style='width: 18rem;'>
-                    <img class="card-img-top" style="width: 100%;" src="../thumbs/<?= $video->ID ?>.jpg">
+                    <img class="card-img-top" style="width: 100%;" src="<?= Url::to("@web/thumbs/".$video->ID.".jpg", true)?>">
                     <div class="card-body">
                         <h5 class="card-title"><?= Html::encode("{$video->Video}") ?></h5>
                         <p class="card-text"><?= $video->Kanal ?></p>

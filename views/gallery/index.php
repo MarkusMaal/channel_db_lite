@@ -2,12 +2,16 @@
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\widgets\LinkPager;
+require_once(dirname(__DIR__, 2)."/helpers/Filters.php");
 /** @var yii\web\View $this */
 
 $this->title = 'Kanali gallerii' . (isset($_GET["page"])?" - Leht ".$_GET["page"]:"");
+$preurl = Url::to(["/gallery/index/"]);
+$ord = isset($_GET["ord"]) ? $_GET["ord"] : "DESC";
+$nord = $ord == "ASC" ? "DESC" : "ASC";
 ?>
 <div class="mx-auto text-center">
-<?= "<a class=\"btn btn-secondary m-2 text-center\" href=\"?ord=" . (!empty($_GET["ord"])?(($_GET["ord"] == "DESC")?"ASC\">Õigetpidi järjestus":"DESC\">Tagurpidi järjestus"):"ASC\">Õigetpidi järjestus") . "</a>" ?>
+<?= "<a class=\"btn btn-secondary m-2 text-center\" href=\"" . Filters::AddFilter($preurl, "ord", $nord) . "\">". (($nord == "ASC")?"Õigetpidi järjestus":"Tagurpidi järjestus") . "</a>" ?>
 </div>
 <?= LinkPager::widget([
     'pagination' => $pagination,
@@ -31,11 +35,9 @@ $this->title = 'Kanali gallerii' . (isset($_GET["page"])?" - Leht ".$_GET["page"
                 $logoid--;
             ?>
             <div class='col'>
-                <a href="view/<?= $channel->ID ?>" style="text-decoration: none;">
+                <a href="<?= Url::to(["/gallery/view/", "id" => $channel->ID]) ?>" style="text-decoration: none;">
                     <div class='card my-5 mx-auto' style='width: 18rem;'>
-                        <img class="card-img-top" style="width: 100%;" src="<?=
-                    (file_exists("gallery/logos/{$channel->ID}/$logoid.png")?"logos/{$channel->ID}/$logoid.png":"")
-                    ?>">
+                        <img class="card-img-top" style="width: 100%;" src="<?= Url::to("@web/gallery/logos/".$channel->ID."/".$logoid.".png", true) ?>">
                         <div class="card-body">
                             <h5 class="card-title"><?= Html::encode("{$channel->Kanal}") ?></h5>
                         </div>

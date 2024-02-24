@@ -1,5 +1,6 @@
 <?php
 use yii\helpers\Html;
+use yii\helpers\Url;
 /** @var yii\web\View $this */
 
 $this->title = 'Videod - '.Html::encode($video->Video);
@@ -8,8 +9,8 @@ $cross = "<span style=\"display: inline-block; width: 2em;\">&#x274C;</span>";
 ?>
 <div class='container mt-2 mb-2'>
     <div class='card mx-auto' style="width: 90%;">
-        <a class="card-img-top text-center" href="/thumbs/<?=$video->ID?>.jpg">
-            <img width="500" src="../../thumbs/<?=$video->ID?>.jpg">
+        <a class="card-img-top text-center" href="<?= Url::to("@web/thumbs/".$video->ID.".jpg", true) ?>">
+            <img width="500" src="<?= Url::to("@web/thumbs/".$video->ID.".jpg", true) ?>">
         </a>
         <div class="card-body">
             <h1 class="card-title"><?= Html::encode("{$video->Video}") ?></h1>
@@ -19,13 +20,13 @@ $cross = "<span style=\"display: inline-block; width: 2em;\">&#x274C;</span>";
             <hr>
             <p>
                 Avaldati: <?= date_format(new DateTime($video->Kuupäev), "d.m.y"); ?><br>
-                Failinimi: <?= $video->Filename ?><br>
-                Kategooria: <?= $video->Category ?>
+                Failinimi: <?= Html::encode($video->Filename) ?><br>
+                Kategooria: <?= Html::encode($video->Category) ?>
             </p>
             <br>
             <?php
-            if ($video->URL != "N/A") { echo '<a class="btn btn-primary mx-2" target="_blank" href="'.$video->URL.'">Ava video (YouTube)</a>'; }
-            if ($video->OdyseeURL != "N/A") { echo '<a class="btn btn-primary mx-2" target="_blank" href="'.$video->OdyseeURL.'">Ava video (Odysee)</a>'; }
+            if ($video->URL != "N/A") { echo '<a class="btn btn-primary mx-2" target="_blank" href="'.Html::encode($video->URL).'">Ava video (YouTube)</a>'; }
+            if ($video->OdyseeURL != "N/A") { echo '<a class="btn btn-primary mx-2" target="_blank" href="'.Html::encode($video->OdyseeURL).'">Ava video (Odysee)</a>'; }
             ?>
             <a class="btn btn-primary mx-2" target="_blank" onclick="window.navigation.back();">Tagasi</a>
             <br>
@@ -45,7 +46,7 @@ $cross = "<span style=\"display: inline-block; width: 2em;\">&#x274C;</span>";
                 <?php
                     foreach ($tags as $tag) {
                         $tag = trim($tag);
-                        echo "<a href='../search?q=$tag'><span class=\"bg-secondary mx-1 badge badge-pill badge-primary\">".$tag."</span></a>";
+                        echo "<a href='".Url::to(["/video/adv-search/", 'q' => $tag])."'><span class=\"bg-secondary mx-1 badge badge-pill badge-primary\">".$tag."</span></a>";
                     }
                 ?>
             </p>

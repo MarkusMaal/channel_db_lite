@@ -1,4 +1,5 @@
 <?php
+use yii\helpers\Url;
 
 /** @var yii\web\View $this */
 
@@ -11,6 +12,6 @@ $this->title = 'Kanali andmebaas';
 
         <p class="lead">Hetkel on võimalused väga primitiivsed, mõeldud ainult katsetamiseks. Tegin selle versiooni kanali andmebaasist, et õppida Yii2 raamistikku kasutama.</p>
 
-        <p><a class="btn btn-lg btn-primary" href="video/index">Sisene</a></p>
+        <p><a class="btn btn-lg btn-primary" href="<?= Url::to(["/video"]) ?>">Sisene</a></p>
     </div>
 </div>
