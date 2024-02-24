@@ -19,7 +19,7 @@ $nord = $ord == "ASC" ? "DESC" : "ASC";
     <ul class="dropdown-menu" aria-labelledby="categorySelectButton">
 
         <?php foreach ($classes as $class) { ?>
-            <li><a class="dropdown-item" href="<?= Filters::AddFilter(Url::to(["/ideas/adv-search"]), "class", $class->Klass); ?>"><?= $class->Klass ?></a></li>
+            <li><a class="dropdown-item" href="<?= Filters::AddFilter($preurl, "class", $class->Klass); ?>"><?= $class->Klass ?></a></li>
         <?php } ?>
     </ul>
 </div>
@@ -30,7 +30,7 @@ $nord = $ord == "ASC" ? "DESC" : "ASC";
     <ul class="dropdown-menu" aria-labelledby="categorySelectButton">
 
         <?php foreach ($channels as $channel) { ?>
-            <li><a class="dropdown-item" href="<?= Filters::AddFilter(Url::to(["/ideas/adv-search"]), "ch", $channel->Kanal); ?>"><?= $channel->Kanal ?></a></li>
+            <li><a class="dropdown-item" href="<?= Filters::AddFilter($preurl, "ch", $channel->Kanal); ?>"><?= $channel->Kanal ?></a></li>
         <?php } ?>
     </ul>
 </div>
