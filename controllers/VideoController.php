@@ -1,6 +1,7 @@
 <?php
 namespace app\controllers;
 
+use yii\db\Query;
 use yii\web\Controller;
 use yii\data\Pagination;
 
@@ -29,6 +30,7 @@ class VideoController extends Controller
             'channels'   => $channels,
             'pagination' => $pagination,
             'categories' => $categories,
+            'years'      => array(),
         ]);
     }
 
@@ -59,11 +61,12 @@ class VideoController extends Controller
             'pagination' => $pagination,
             'channels'   => $channels,
             'categories' => $categories,
+            'years'      => array(),
         ]);
     }
 
     // advanced search (url: adv-search)
-    public function actionAdvSearch($q = "", $ch = "", $del = "-1", $sub = "-1", $pub = "-1", $live = "-1", $hd = "-1", $cat = "") {
+    public function actionAdvSearch($q = "", $ch = "", $del = "-1", $sub = "-1", $pub = "-1", $live = "-1", $hd = "-1", $cat = "", $year = "") {
         $query = Video::find()
         ->where(["like", "CONCAT(Video, Kanal, Kirjeldus, URL, Kuupäev, Filename, Category, Tags, OdyseeURL)", $q]);
         if ($del != "-1") $query->andWhere("Kustutatud=:del", ["del" => $del]);
@@ -73,6 +76,8 @@ class VideoController extends Controller
         if ($hd != "-1") $query->andWhere("HD=:hd", ["hd" => $hd]);
         if ($ch != "") $query->andWhere("Kanal=:ch", ["ch" => $ch]);
         if ($cat != "") $query->andWhere("Category=:cat", ["cat" => $cat]);
+        if ($year != "") $query->andWhere("Kuupäev > :year_start", ["year_start" => ($year-1)."-12-31"]);
+        if ($year != "") $query->andWhere("Kuupäev < :year_end", ["year_end" => ($year+1)."-01-01"]);
         $pagination = new Pagination([
             'defaultPageSize' => 20,
             'totalCount' => $query->count(),
@@ -84,11 +89,13 @@ class VideoController extends Controller
         ->all();
         $categories = Video::find()->orderBy('Category')->select('Category')->distinct()->all();
         $channels = Video::find()->orderBy('Kanal')->select('Kanal')->distinct()->all();
+        $years = Video::find()->orderBy("Kuupäev DESC")->select('Kuupäev')->distinct()->all();
         return $this->render('index', [
             'videos'     => $videos,
             'pagination' => $pagination,
             'channels'   => $channels,
             'categories' => $categories,
+            'years'      => $years,
         ]);
     }
 

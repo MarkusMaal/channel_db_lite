@@ -39,6 +39,25 @@ echo "<a class=\"btn btn-secondary m-2 text-center\" href=\"".Filters::AddFilter
         <?php } ?>
     </ul>
 </div>
+<div class="dropdown d-inline ms-2">
+    <button class="btn btn-secondary dropdown-toggle" type="button" id="yearSelectButton" data-bs-toggle="dropdown" aria-expanded="false">
+        Aasta
+    </button>
+    <ul class="dropdown-menu" aria-labelledby="yearSelectButton">
+
+        <?php 
+        $distyrs = array();
+        foreach ($years as $year) {
+            $cyr = new DateTime($year->Kuupäev);
+            if (!in_array($cyr->format("Y"), $distyrs)) {
+                $distyrs[] = $cyr->format("Y");
+            }
+         }
+         foreach ($distyrs as $year) { ?>
+             <li><a class="dropdown-item" href="<?= Filters::AddFilter($preurl, "year", $year); ?>"><?= $year ?></a></li>
+         <?php } ?>
+    </ul>
+</div>
 <?php
 
 $filterset = [
