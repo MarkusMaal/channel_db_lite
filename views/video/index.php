@@ -93,6 +93,10 @@ $filterset = [
         "type" => "string",
         "label" => "Kategooria"
     ],
+    "year" => [
+        "type" => "string",
+        "label" => "Aasta"
+    ],
 ];
 echo Filters::DisplayBooleanSelectors($preurl, $filterset);
 echo Filters::DisplayFilters($filterset);
