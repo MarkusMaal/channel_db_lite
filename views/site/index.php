@@ -10,7 +10,7 @@ $this->title = 'Kanali andmebaas';
     <div class="jumbotron bg-transparent mt-5 mb-5">
         <h1 class="display-5">Kanali andmebaas Lite</h1>
         <?php isset($_GET["q"])?Yii::$app->session->setFlash('info', 'Otsimiseks palun sisenege videote, ideede või galerii lehele'):"" ?>
-        <p class="lead">Uue koodiga versioon kanali andmebaasist, mis on kirjutatud <a target="_blank" href="<?= Url::to("https://www.yiiframework.com") ?>">Yii2 raamistikus</a>. Hetkel on puuduvad teatud funktsioonid, sealhulgas...</p>
+        <p class="lead">Uue koodiga versioon kanali andmebaasist, mis on kirjutatud <a target="_blank" href="<?= Url::to("https://www.yiiframework.com") ?>">Yii2 raamistikus</a>. Hetkel puuduvad teatud funktsioonid, sealhulgas...</p>
         <ul>
             <li>Mitme keele tugi</li>
             <li>Raporti koostamine ja salvestamine erinevates formaatidesse</li>
