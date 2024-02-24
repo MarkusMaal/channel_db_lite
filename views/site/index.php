@@ -16,7 +16,7 @@ $this->title = 'Kanali andmebaas';
             <li>Raporti koostamine ja salvestamine erinevates formaatidesse</li>
             <li>Kommentaarid (videod alamleht)</li>
             <li>Tulemuste sorteerimine</li>
-            <li>Ühel leheküljel kuvatavate tulemuste arvu muutmine</li>
+            <li>Ühel leheküljel kuvatavate tulemuste arhttp://start.me/vu muutmine</li>
             <li>Piltide peitmine tulemustelehelt</li>
             <li>Pärandrežiim (pole plaanis seda lisada, sest selle väärtus varasemas versioonis oli ka kaheldav)</li>
         </ul>
