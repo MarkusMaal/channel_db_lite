@@ -42,6 +42,9 @@ $config = [
                 ],
             ],
         ],
+        'assetManager' => [
+            'appendTimestamp' => true,
+        ],
         'db' => $db,
         
         'urlManager' => [
