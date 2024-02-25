@@ -12,9 +12,16 @@ $config = [
         '@bower' => '@vendor/bower-asset',
         '@npm'   => '@vendor/npm-asset',
     ],
+    'language' => "et-EE",
+    'sourceLanguage' => 'et-EE',
     'components' => [
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
+
+            'enableCookieValidation' => true,
+
+            'enableCsrfValidation' => true,
+            
             'cookieValidationKey' => 'l3J7bKfSWPmBj9RNrb5m0HtOtrz_B9RX',
         ],
         'cache' => [
@@ -45,6 +52,26 @@ $config = [
         'assetManager' => [
             'appendTimestamp' => true,
         ],
+
+
+        'i18n' => [
+            'translations' => [
+                '*' => [
+                    'class' => 'yii\i18n\PhpMessageSource',
+                    'basePath' => '@app/messages',
+                    'sourceLanguage' => 'et-EE',
+                    'fileMap' => [
+                        'app' => 'app.php',
+                        'site' => 'site.php',
+                        'videos' => 'videos.php',
+                        'ideas' => 'ideas.php',
+                        'gallery' => 'gallery.php',
+                        'app/error' => 'error.php',
+                    ],
+                ],
+            ],
+        ],
+
         'db' => $db,
         
         'urlManager' => [

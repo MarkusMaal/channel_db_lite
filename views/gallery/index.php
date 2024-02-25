@@ -3,24 +3,26 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\widgets\LinkPager;
 require_once(dirname(__DIR__, 2)."/helpers/Filters.php");
+require_once(Yii::getAlias("@app/helpers/InitLang.php"));
 /** @var yii\web\View $this */
 
-$this->title = 'Kanali gallerii' . (isset($_GET["page"])?" - Leht ".$_GET["page"]:"");
+$this->title = Yii::t('gallery', 'Kanali galerii') . (isset($_GET["page"])?" - ".Yii::t("gallery", "Leht {0}", $_GET["page"]):"");
 $preurl = Yii::$app->request->getUrl();
 $ord = isset($_GET["ord"]) ? $_GET["ord"] : "DESC";
 $nord = $ord == "ASC" ? "DESC" : "ASC";
 ?>
 <div class="mx-auto text-center">
-<?= "<a class=\"btn btn-secondary m-2 me-1 text-center\" href=\"" . Filters::AddFilter($preurl, "ord", $nord) . "\">". (($nord == "ASC")?"Õigetpidi järjestus":"Tagurpidi järjestus") . "</a>" ?>
 <?php
+echo "<a class=\"btn btn-secondary m-2 text-center\" href=\"".Filters::AddFilter($preurl, "ord", $nord) . (!empty($_GET["ord"])?(($_GET["ord"] == "DESC")?"\">".Yii::t("app", "Õigetpidi järjestus")."":"\">".Yii::t("app", "Tagurpidi järjestus").""):"\">".Yii::t("app", "Õigetpidi järjestus")."") . "</a>";
+?><?php
 $filterset = [
     "q" => [
         "type" => "string",
-        "label" => "Märksõna(d)"
+        "label" => Yii::t("gallery", "Märksõna(d)")
     ],
     "del" => [
         "type" => "boolean",
-        "label" => "Kustutatud"
+        "label" => Yii::t("gallery", "Kustutatud")
     ],
 ];
 echo Filters::DisplayBooleanSelectors($preurl, $filterset);
@@ -37,7 +39,7 @@ echo Filters::DisplayFilters($filterset);
     'nextPageLabel' => '&gt;',
     'prevPageLabel' => '&lt;'
     ]) ?>
-<p class='text-center'>Leiti <?= $pagination->totalCount ?> vastet.</p>
+<p class='text-center'><?= Yii::t("app", "Leiti {0} vastet.", $pagination->totalCount) ?></p>
 <div class='container'>
     <div class='row mx-auto'>
         <?php foreach ($channels as $channel): ?>

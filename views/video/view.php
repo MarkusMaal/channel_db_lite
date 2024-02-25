@@ -2,8 +2,10 @@
 use yii\helpers\Html;
 use yii\helpers\Url;
 /** @var yii\web\View $this */
+require_once(Yii::getAlias("@app/helpers/InitLang.php"));
+require_once(Yii::getAlias("@app/helpers/LangUtils.php"));
 
-$this->title = 'Videod - '.Html::encode($video->Video);
+$this->title = Yii::t("videos", "Videod") . ' - '.LangUtils::GetMuiTitle(Yii::$app->language, $video);
 $check = "<span style=\"display: inline-block; width: 2em;\">&#x2714;</span>";
 $cross = "<span style=\"display: inline-block; width: 2em;\">&#x274C;</span>";
 ?>
@@ -13,35 +15,35 @@ $cross = "<span style=\"display: inline-block; width: 2em;\">&#x274C;</span>";
             <img width="500" src="<?= Url::to("@web/thumbs/".$video->ID.".jpg", true) ?>">
         </a>
         <div class="card-body">
-            <h1 class="card-title"><?= Html::encode("{$video->Video}") ?></h1>
-            <p><?= Html::encode("{$video->Kanal}") ?></p>
+            <h1 class="card-title"><?= LangUtils::GetMuiTitle(Yii::$app->language, $video) ?></h1>
+            <p><?= LangUtils::GetMuiChannel(Yii::$app->language, $video) ?></p>
             <hr>
-            <p><?= nl2br(Html::encode("{$video->Kirjeldus}")) ?></p>
+            <p><?= nl2br(LangUtils::GetMuiDesc(Yii::$app->language, $video)) ?></p>
             <hr>
             <p>
-                Avaldati: <?= date_format(new DateTime($video->Kuupäev), "d.m.y"); ?><br>
-                Failinimi: <?= Html::encode($video->Filename) ?><br>
-                Kategooria: <?= Html::encode($video->Category) ?>
+                <?= Yii::t('videos', 'Avaldati'); ?>: <?= date_format(new DateTime($video->Kuupäev), "d.m.y"); ?><br>
+                <?= Yii::t('videos', 'Failinimi'); ?>: <?= Html::encode($video->Filename) ?><br>
+                <?= Yii::t('videos', 'Kategooria'); ?>: <?= Html::encode((Yii::$app->language == "et-EE"?$video->Category:$video->CategoryMUI_en)) ?>
             </p>
             <br>
             <?php
-            if ($video->URL != "N/A") { echo '<a class="btn btn-primary mx-2" target="_blank" href="'.Html::encode($video->URL).'">Ava video (YouTube)</a>'; }
-            if ($video->OdyseeURL != "N/A") { echo '<a class="btn btn-primary mx-2" target="_blank" href="'.Html::encode($video->OdyseeURL).'">Ava video (Odysee)</a>'; }
+            if ($video->URL != "N/A") { echo '<a class="btn btn-primary mx-2" target="_blank" href="'.Html::encode($video->URL).'">'.Yii::t('videos', 'Ava video ({0})', ['YouTube']).'</a>'; }
+            if ($video->OdyseeURL != "N/A") { echo '<a class="btn btn-primary mx-2" target="_blank" href="'.Html::encode($video->OdyseeURL).'">'.Yii::t('videos', 'Ava video ({0})', ['Odysee']).'</a>'; }
             ?>
-            <a class="btn btn-primary mx-2" target="_blank" onclick="window.navigation.back();">Tagasi</a>
+            <a class="btn btn-primary mx-2" target="_blank" onclick="window.navigation.back();"><?= Yii::t('app', 'Tagasi'); ?></a>
             <br>
-            <h2 class="mt-3">Attribuudid</h2>
+            <h2 class="mt-3"><?= Yii::t('app', 'Attribuudid'); ?></h2>
             <ul style="list-style-type: none; margin: 0; padding: 0;">
-                <li><?= (($video->Kustutatud)?$check:$cross) ?>Kustutatud</li>
-                <li><?= (($video->Subtiitrid)?$check:$cross) ?>Subtiitrid</li>
-                <li><?= (($video->Avalik)?$check:$cross) ?>Avalik</li>
-                <li><?= (($video->Ülekanne)?$check:$cross) ?>Ülekanne</li>
-                <li><?= (($video->HD)?$check:$cross) ?>HD</li>
+                <li><?= (($video->Kustutatud)?$check:$cross) ?><?= Yii::t('videos', 'Kustutatud') ?></li>
+                <li><?= (($video->Subtiitrid)?$check:$cross) ?><?= Yii::t('videos', 'Subtiitrid') ?></li>
+                <li><?= (($video->Avalik)?$check:$cross) ?><?= Yii::t('videos', 'Avalik') ?></li>
+                <li><?= (($video->Ülekanne)?$check:$cross) ?><?= Yii::t('videos', 'Ülekanne') ?></li>
+                <li><?= (($video->HD)?$check:$cross) ?><?= Yii::t('videos', 'HD') ?></li>
             </ul>
             <?php
                 $tags = explode(",", $video->Tags);
             ?>
-            <h2 class="mt-3"><?=!empty(trim($video->Tags))?"Sildid":""?></h2>
+            <h2 class="mt-3"><?=!empty(trim($video->Tags))?Yii::t("videos", "Sildid"):""?></h2>
             <p>
                 <?php
                     foreach ($tags as $tag) {

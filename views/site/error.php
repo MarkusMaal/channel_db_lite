@@ -6,6 +6,7 @@
 /** @var Exception$exception */
 
 use yii\helpers\Html;
+require_once(Yii::getAlias("@app/helpers/InitLang.php"));
 
 $this->title = $name;
 ?>

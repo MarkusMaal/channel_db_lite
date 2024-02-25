@@ -23,8 +23,8 @@ class VideoController extends Controller
         ->limit($pagination->limit)
         ->all();
 
-        $categories = Video::find()->orderBy('Category')->select('Category')->distinct()->all();
-        $channels = Video::find()->orderBy('Kanal')->select('Kanal')->distinct()->all();
+        $categories = Video::find()->orderBy('Category')->select('Category,CategoryMUI_en')->distinct()->all();
+        $channels = Video::find()->orderBy('Kanal')->select('Kanal,KanalMUI_et,KanalMUI_en')->distinct()->all();
         return $this->render('index', [
             'videos'     => $videos,
             'channels'   => $channels,
@@ -54,8 +54,8 @@ class VideoController extends Controller
         ->offset($pagination->offset)
         ->limit($pagination->limit)
         ->all();
-        $categories = Video::find()->orderBy('Category')->select('Category')->distinct()->all();
-        $channels = Video::find()->orderBy('Kanal')->select('Kanal')->distinct()->all();
+        $categories = Video::find()->orderBy('Category')->select('Category,CategoryMUI_en')->distinct()->all();
+        $channels = Video::find()->orderBy('Kanal')->select('Kanal,KanalMUI_et,KanalMUI_en')->distinct()->all();
         return $this->render('index', [
             'videos'     => $videos,
             'pagination' => $pagination,
@@ -87,8 +87,8 @@ class VideoController extends Controller
         ->offset($pagination->offset)
         ->limit($pagination->limit)
         ->all();
-        $categories = Video::find()->orderBy('Category')->select('Category')->distinct()->all();
-        $channels = Video::find()->orderBy('Kanal')->select('Kanal')->distinct()->all();
+        $categories = Video::find()->orderBy('Category')->select('Category,CategoryMUI_en')->distinct()->all();
+        $channels = Video::find()->orderBy('Kanal')->select('Kanal,KanalMUI_et,KanalMUI_en')->distinct()->all();
         $years = Video::find()->orderBy("Kuupäev DESC")->select('Kuupäev')->distinct()->all();
         return $this->render('index', [
             'videos'     => $videos,

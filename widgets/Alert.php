@@ -3,6 +3,7 @@
 namespace app\widgets;
 
 use Yii;
+require_once(Yii::getAlias("@app/helpers/InitLang.php"));
 
 /**
  * Alert widget renders a message from session flash. All flash messages are displayed

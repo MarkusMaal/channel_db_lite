@@ -11,8 +11,9 @@ use yii\bootstrap5\Nav;
 use yii\bootstrap5\NavBar;
 use yii\widgets\ActiveForm;
 
+require_once(Yii::getAlias("@app/helpers/InitLang.php"));
+Yii::$app->name = Yii::t("app", "Kanali andmebaas Lite");
 AppAsset::register($this);
-
 $this->registerCsrfMetaTags();
 $this->registerMetaTag(['charset' => Yii::$app->charset], 'charset');
 $this->registerMetaTag(['name' => 'viewport', 'content' => 'width=device-width, initial-scale=1, shrink-to-fit=no']);
@@ -40,9 +41,10 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav'],
         'items' => [
-            ['label' => 'Videod', 'url' => ['/video/adv-search']],
-            ['label' => 'Ideed', 'url' => ['/ideas/adv-search']],
-            ['label' => 'Galerii', 'url' => ['/gallery/index']],
+            ['label' => Yii::t('app', 'Videod'), 'url' => ['/video/adv-search']],
+            ['label' => Yii::t('app', 'Ideed'), 'url' => ['/ideas/adv-search']],
+            ['label' => Yii::t('app', 'Galerii'), 'url' => ['/gallery/index']],
+            ['label' => Yii::t('app', 'Muuda keelt'), 'url' => ['/lang']],
         ]
     ]);
 ?>
@@ -54,8 +56,8 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
                 }
             }
         ?>
-        <input class="form-control bg-primary me-2" type="search" placeholder="Märksõna(d)" aria-label="Keywords" name="q" value="<?= (isset($_GET["q"])?Html::encode($_GET["q"]):"") ?>">
-        <button class="btn btn-outline-light text-white" type="submit">Otsi</button>
+        <input class="form-control bg-primary me-2" type="search" placeholder="<?= Yii::t('app', 'Märksõna(d)') ?>" aria-label="Keywords" name="q" value="<?= (isset($_GET["q"])?Html::encode($_GET["q"]):"") ?>">
+        <button class="btn btn-outline-light text-white" type="submit"><?= Yii::t('app', 'Otsi') ?></button>
     </form>
 <?php
     NavBar::end();

@@ -2,6 +2,8 @@
 use yii\helpers\Url;
 use yii\helpers\Html;
 
+require_once(Yii::getAlias("@app/helpers/LangUtils.php"));
+
 class Filters {
     // I like this method, because it just works lol
     public static function ClearFilter(&$url, $toRemove) {
@@ -35,9 +37,8 @@ class Filters {
     }
 
     public static function DisplayFilters($filterset) {
-        $o = "<p>Filtrid:&nbsp;";
+        $o = "<p>". Yii::t("app", "Filtrid") . ":&nbsp;";
         $hasFilters = false;
-        $o = "<p>";
         foreach ($filterset as $key => $value) {
             if (isset($_GET[$key])) {
                 if ($value["type"] == "string") {
@@ -60,7 +61,7 @@ class Filters {
     public static function DisplayBooleanSelectors($preurl, $filterset) {
         $o = '<div class="dropdown d-inline ms-2">';
         $o.= '<button class="btn btn-secondary dropdown-toggle" type="button" id="displayOnlyButton" data-bs-toggle="dropdown" aria-expanded="false">';
-        $o.= "Kuva ainult";
+        $o.= Yii::t('app', "Kuva ainult");
         $o.= "</button>";
         $o.= '<ul class="dropdown-menu" aria-labelledby="displayOnlyButton">';
         foreach ($filterset as $key => $value) {
@@ -73,7 +74,7 @@ class Filters {
         
         $o.= '<div class="dropdown d-inline ms-2">';
         $o.= '<button class="btn btn-secondary dropdown-toggle ms-1" type="button" id="dontDisplay" data-bs-toggle="dropdown" aria-expanded="false">';
-        $o.= "Ära kuva";
+        $o.= Yii::t('app', "Ära kuva");
         $o.= "</button>";
         $o.= '<ul class="dropdown-menu" aria-labelledby="dontDisplay">';
         foreach ($filterset as $key => $value) {
