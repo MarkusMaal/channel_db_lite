@@ -53,7 +53,9 @@ echo Filters::DisplayFilters($filterset);
             <div class='col'>
                 <a href="<?= Url::to(["/gallery/view/", "id" => $channel->ID]) ?>" style="text-decoration: none;">
                     <div class='card my-5 mx-auto' style='width: 18rem;'>
+                        <?php if (!isset($_COOKIE["thumbnails"]) || $_COOKIE["thumbnails"] != "false") {?>
                         <img class="card-img-top" style="width: 100%;" src="<?= Url::to("@web/gallery/logos/".$channel->ID."/".$logoid.".png", true) ?>">
+                        <?php } ?>
                         <div class="card-body">
                             <h5 class="card-title"><?= Html::encode("{$channel->Kanal}") ?></h5>
                         </div>

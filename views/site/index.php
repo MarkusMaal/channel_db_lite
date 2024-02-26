@@ -18,7 +18,7 @@ $this->title = Yii::t('site', 'Kanali andmebaas');
             <li><?= Yii::t('site', 'Kommentaarid (videod alamleht)'); ?></li>
             <li><?= Yii::t('site', 'Tulemuste sorteerimine');?></li>
             <!--<li><?= Yii::t('site', 'Ühel leheküljel kuvatavate tulemuste arvu muutmine');?></li>-->
-            <li><?= Yii::t('site', 'Piltide peitmine tulemustelehelt');?></li>
+            <!--<li><?= Yii::t('site', 'Piltide peitmine tulemustelehelt');?></li>-->
             <li><?= Yii::t('site', 'Pärandrežiim (pole plaanis seda lisada, sest selle väärtus varasemas versioonis oli ka kaheldav)'); ?></li>
         </ul>
         <h3 style="font-weight: normal;"><?= Yii::t('site', 'Kuid milleks luua veel üks uus version kanali andmebaasist?'); ?></h3>

@@ -120,7 +120,9 @@ echo Filters::DisplayFilters($filterset);
         <div class='col'>
             <a href="<?= Url::to(["/video/view/", 'id' => $video->ID]) ?>" style="text-decoration: none;">
                 <div class='card my-5 mx-auto' style='width: 18rem;'>
+                    <?php if (!isset($_COOKIE["thumbnails"]) || $_COOKIE["thumbnails"] != "false") {?>
                     <img class="card-img-top" style="width: 100%;" src="<?= Url::to("@web/thumbs/".$video->ID.".jpg", true)?>">
+                    <?php } ?>
                     <div class="card-body">
                         <h5 class="card-title"><?= LangUtils::GetMuiTitle(Yii::$app->language, $video) ?></h5>
                         <p class="card-text"><?= $video->Kanal ?></p>
