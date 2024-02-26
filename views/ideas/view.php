@@ -15,7 +15,7 @@ $cross = "<span style=\"display: inline-block; width: 2em;\">&#x274C;</span>";
             <hr>
             <p><?= nl2br(Html::encode("{$idea->Kirjeldus}")) ?></p>
             <hr>
-            <a class="btn btn-primary mx-2" target="_blank" onclick="window.navigation.back();"><?= Yii::t("app", "Tagasi") ?></a>
+            <a class="btn btn-primary mx-2" target="_blank" onclick="window.history.back();"><?= Yii::t("app", "Tagasi") ?></a>
             <br>
             <br>
             <h2 class="mt-4"><?= Yii::t("app", "Attribuudid") ?></h2>
