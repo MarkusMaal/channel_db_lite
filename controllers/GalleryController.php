@@ -14,7 +14,7 @@ class GalleryController extends Controller
         ->where(["like", "CONCAT(Kanal,Kirjeldus,Loomiskuupäev,URL)", $q]);
         if ($del != "-1") $query->andWhere("Kustutatud=:del", ["del" => $del]);
         $pagination = new Pagination([
-            'defaultPageSize' => 20,
+            'defaultPageSize' => $_COOKIE["results"]??20,
             'totalCount' => $query->count(),
         ]);
 

@@ -14,7 +14,7 @@ class VideoController extends Controller
     {
         $query = Video::find();
         $pagination = new Pagination([
-            'defaultPageSize' => 20,
+            'defaultPageSize' => $_COOKIE["results"]??20,
             'totalCount' => $query->count(),
         ]);
 
@@ -46,7 +46,7 @@ class VideoController extends Controller
     public function actionSearch($q) {
         $query = Video::find()->where(["like", "CONCAT(Video, Kanal, Kirjeldus, URL, Kuupäev, Filename, Category, Tags, OdyseeURL)", $q]);
         $pagination = new Pagination([
-            'defaultPageSize' => 20,
+            'defaultPageSize' => $_COOKIE["results"]??20,
             'totalCount' => $query->count(),
         ]);
 
@@ -79,7 +79,7 @@ class VideoController extends Controller
         if ($year != "") $query->andWhere("Kuupäev > :year_start", ["year_start" => ($year-1)."-12-31"]);
         if ($year != "") $query->andWhere("Kuupäev < :year_end", ["year_end" => ($year+1)."-01-01"]);
         $pagination = new Pagination([
-            'defaultPageSize' => 20,
+            'defaultPageSize' => $_COOKIE["results"]??20,
             'totalCount' => $query->count(),
         ]);
 

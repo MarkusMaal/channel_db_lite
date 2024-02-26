@@ -12,7 +12,7 @@ class IdeasController extends Controller
     {
         $query = Ideas::find();
         $pagination = new Pagination([
-            'defaultPageSize' => 20,
+            'defaultPageSize' => $_COOKIE["results"]??20,
             'totalCount' => $query->count(),
         ]);
 
@@ -45,7 +45,7 @@ class IdeasController extends Controller
         if ($live != "") $query->andWhere("Ülekanne=:live", ["live" => $live]);
         if ($ch != "") $query->andWhere("Kanal=:ch", ["ch" => $ch]);
         $pagination = new Pagination([
-            'defaultPageSize' => 20,
+            'defaultPageSize' => $_COOKIE["results"]??20,
             'totalCount' => $query->count(),
         ]);
 
