@@ -11,7 +11,7 @@ $this->title = Yii::t('site', 'Kanali andmebaas');
     <div class="jumbotron bg-transparent mt-5 mb-5">
         <h1 class="display-5"><?= Yii::t('app', 'Kanali andmebaas Lite') ?></h1>
         <?php isset($_GET["q"])?Yii::$app->session->setFlash('info', Yii::t('site', 'Otsimiseks palun sisenege videote, ideede või galerii lehele')):"" ?>
-        <p class="lead"><?= Yii::t('site', 'Uue koodiga versioon kanali andmebaasist, mis on kirjutatud {0}. Hetkel puuduvad teatud funktsioonid, sealhulgas...', ["<a href='https://yiiframework.com' target='_blank'>".Yii::t("site", "Yii raamistikus")."</a>"]) ?></p>
+        <p class="lead"><?= Yii::t('site', 'Uue koodiga versioon kanali andmebaasist, mis on kirjutatud {0}. Hetkel puuduvad teatud funktsioonid, sealhulgas...', ["<a class='link-blurple' href='https://yiiframework.com' target='_blank'>".Yii::t("site", "Yii raamistikus")."</a>"]) ?></p>
         <ul>
             <!--<li><?= Yii::t('site', 'Mitme keele tugi'); ?></li>-->
             <li><?= Yii::t('site', 'Raporti koostamine ja salvestamine erinevatesse formaatidesse'); ?></li>
@@ -34,10 +34,10 @@ $this->title = Yii::t('site', 'Kanali andmebaas');
             <li><?= Yii::t('site', 'Vana kanali andmebaas on täis haavatavusi ja veidraid bugisid, mis on vaja likvideerida'); ?></li>
             <li><?= Yii::t('site', 'Yii2 sisaldab paremaid silumistööriistu vigade leidmiseks'); ?></li>
         </ul>
-        <a class="btn btn-lg btn-primary me-2" href="<?= Url::to(["/video/adv-search"]) ?>"><?= Yii::t("app", "Videod") ?></a>
-        <a class="btn btn-lg btn-warning me-2" href="<?= Url::to(["/ideas/adv-search"]) ?>"><?= Yii::t("app", "Ideed") ?></a>
-        <a class="btn btn-lg btn-success me-2" href="<?= Url::to(["/gallery/index"]) ?>"><?= Yii::t("app", "Galerii") ?></a>
-        <a class="btn btn-lg btn-secondary me-2" href="<?= Url::to("/channel_db?ord=id&dir=DESC", true) ?>"><?= Yii::t("app", "Täisversioon") ?></a>
-        <a class="btn btn-lg btn-secondary" href="<?= Url::to("https://markustegelane.eu/channel_db_old") ?>"><?= Yii::t("app", "Old design") ?></a>
+        <a class="btn btn-lg btn-blurple me-2" href="<?= Url::to(["/video/adv-search"]) ?>"><?= Yii::t("app", "Videod") ?></a>
+        <a class="btn btn-lg btn-orangellow me-2" href="<?= Url::to(["/ideas/adv-search"]) ?>"><?= Yii::t("app", "Ideed") ?></a>
+        <a class="btn btn-lg btn-skyblue me-2" href="<?= Url::to(["/gallery/index"]) ?>"><?= Yii::t("app", "Galerii") ?></a>
+        <a class="btn btn-lg btn-primary me-2" href="<?= Url::to("/channel_db?ord=id&dir=DESC", true) ?>"><?= Yii::t("app", "Täisversioon") ?></a>
+        <a class="btn btn-lg btn-secondary" href="<?= Url::to("https://markustegelane.eu/channel_db_old") ?>"><?= Yii::t("app", "Vana kujundus") ?></a>
     </div>
 </div>

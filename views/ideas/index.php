@@ -64,28 +64,39 @@ echo Filters::DisplayFilters($filterset);
 ?>
 </div>
 
+
+<div class="text-center">
+<?php $colorClass = "orangellow"; ?>
 <?= LinkPager::widget([
     'pagination' => $pagination,
-    'linkOptions'=> ['class'=> 'page-link'],
-    'disabledPageCssClass' => 'page-link disabled',
-    'options' => ['class'=> 'pagination justify-content-center p-2'],
+    'linkOptions'=> ['class'=> 'text-black py-1 px-2 d-block'],
+    'linkContainerOptions'=> ['class' => 'p-0 m-0', 'tag' => 'span'],
+    'disabledPageCssClass' => 'disabled py-1 px-2',
+    'activePageCssClass' => 'btn btn-'.$colorClass.' active',
+    'pageCssClass' => 'btn btn-'.$colorClass,
+    'options' => ['class'=> 'btn-group justify-content-center p-2', 'role' => 'group', 'tag' => 'div'],
+    'firstPageCssClass' => 'btn btn-'.$colorClass,
+    'lastPageCssClass' => 'btn btn-'.$colorClass,
+    'nextPageCssClass' => 'btn btn-'.$colorClass,
+    'prevPageCssClass' => 'btn btn-'.$colorClass,
     'firstPageLabel' => '&lt;&lt;',
     'lastPageLabel' => '&gt;&gt;',
     'nextPageLabel' => '&gt;',
     'prevPageLabel' => '&lt;'
     ]) ?>
+</div>
 <p class='text-center'><?= Yii::t("app", "Leiti {0} vastet.", $pagination->totalCount) ?></p>
 <div class='container'>
     <ul class='list-group list-group-flush'>
         <?php foreach ($ideas as $idea): ?>
             <li class='list-group-item d-flex justify-content-between align-items-start'>
                 <a href="<?= Url::to(["/ideas/view/", "id" => $idea->id]) ?>" style="text-decoration: none;">
-                    <div class="ms-2 me-auto">
+                    <div class="ms-2 me-auto text-black">
                         <div class="fw-bold"><?= $idea->Video ?></div>
                         <?= $idea->Kanal ?>
                     </div>
                 </a>
-                <span class="badge bg-primary rounded-pill"><?= $idea->Klass ?></span>
+                <span class="badge bg-orangellow text-black rounded-pill"><?= $idea->Klass ?></span>
         </li>
         <?php endforeach; ?>
     </div>

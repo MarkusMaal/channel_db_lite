@@ -27,10 +27,10 @@ $cross = "<span style=\"display: inline-block; width: 2em;\">&#x274C;</span>";
             </p>
             <br>
             <?php
-            if ($video->URL != "N/A") { echo '<a class="btn btn-primary mx-2" target="_blank" href="'.Html::encode($video->URL).'">'.Yii::t('videos', 'Ava video ({0})', ['YouTube']).'</a>'; }
-            if ($video->OdyseeURL != "N/A") { echo '<a class="btn btn-primary mx-2" target="_blank" href="'.Html::encode($video->OdyseeURL).'">'.Yii::t('videos', 'Ava video ({0})', ['Odysee']).'</a>'; }
+            if ($video->URL != "N/A") { echo '<a class="btn btn-blurple mx-2" target="_blank" href="'.Html::encode($video->URL).'">'.Yii::t('videos', 'Ava video ({0})', ['YouTube']).'</a>'; }
+            if ($video->OdyseeURL != "N/A") { echo '<a class="btn btn-blurple mx-2" target="_blank" href="'.Html::encode($video->OdyseeURL).'">'.Yii::t('videos', 'Ava video ({0})', ['Odysee']).'</a>'; }
             ?>
-            <a class="btn btn-primary mx-2" target="_blank" onclick="window.history.back();"><?= Yii::t('app', 'Tagasi'); ?></a>
+            <a class="btn btn-blurple mx-2" target="_blank" onclick="window.history.back();"><?= Yii::t('app', 'Tagasi'); ?></a>
             <br>
             <h2 class="mt-3"><?= Yii::t('app', 'Attribuudid'); ?></h2>
             <ul style="list-style-type: none; margin: 0; padding: 0;">

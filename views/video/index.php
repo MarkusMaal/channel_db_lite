@@ -104,16 +104,26 @@ echo Filters::DisplayBooleanSelectors($preurl, $filterset);
 echo Filters::DisplayFilters($filterset);
 ?>
 </div>
+<div class="text-center">
+<?php $colorClass = "blurple"; ?>
 <?= LinkPager::widget([
     'pagination' => $pagination,
-    'linkOptions'=> ['class'=> 'page-link'],
-    'disabledPageCssClass' => 'page-link disabled',
-    'options' => ['class'=> 'pagination justify-content-center p-2'],
+    'linkOptions'=> ['class'=> 'text-white py-1 px-2 d-block'],
+    'linkContainerOptions'=> ['class' => 'p-0 m-0', 'tag' => 'span'],
+    'disabledPageCssClass' => 'disabled py-1 px-2',
+    'activePageCssClass' => 'btn btn-'.$colorClass.' active',
+    'pageCssClass' => 'btn btn-'.$colorClass,
+    'options' => ['class'=> 'btn-group justify-content-center p-2', 'role' => 'group', 'tag' => 'div'],
+    'firstPageCssClass' => 'btn btn-'.$colorClass,
+    'lastPageCssClass' => 'btn btn-'.$colorClass,
+    'nextPageCssClass' => 'btn btn-'.$colorClass,
+    'prevPageCssClass' => 'btn btn-'.$colorClass,
     'firstPageLabel' => '&lt;&lt;',
     'lastPageLabel' => '&gt;&gt;',
     'nextPageLabel' => '&gt;',
     'prevPageLabel' => '&lt;'
     ]) ?>
+</div>
 <p class='text-center'><?= Yii::t('app', 'Leiti {0} vastet.', $pagination->totalCount) ?></p>
 <div class='row mx-auto'>
     <?php foreach ($videos as $video): ?>

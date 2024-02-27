@@ -20,6 +20,18 @@ $this->registerMetaTag(['name' => 'viewport', 'content' => 'width=device-width, 
 $this->registerMetaTag(['name' => 'description', 'content' => $this->params['meta_description'] ?? '']);
 $this->registerMetaTag(['name' => 'keywords', 'content' => $this->params['meta_keywords'] ?? '']);
 $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii::getAlias('@web/favicon.ico')]);
+
+$className = "blurple";
+$mode = "dark";
+switch (Yii::$app->controller->id) {
+    case "ideas":
+        $className = "orangellow";
+        $mode = "light";
+        break;
+    case "gallery":
+        $className = "skyblue";
+        break;
+}
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
@@ -30,13 +42,12 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
 </head>
 <body class="d-flex flex-column h-100">
 <?php $this->beginBody() ?>
-
 <header id="header">
     <?php
     NavBar::begin([
         'brandLabel' => Yii::$app->name,
         'brandUrl' => Yii::$app->homeUrl,
-        'options' => ['class' => 'navbar-expand-md navbar-dark bg-primary fixed-top']
+        'options' => ['class' => 'navbar-expand-md navbar-'.$mode.' bg-'.$className.' fixed-top']
     ]);
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav'],
@@ -48,7 +59,7 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
         ]
     ]);
 ?>
-    <form class="d-flex dark" method="get">
+    <form class="d-flex <?= $mode ?>" method="get">
         <?php
             foreach ($_GET as $key => $value) { 
                 if ($key != "q") {
@@ -56,8 +67,8 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
                 }
             }
         ?>
-        <input class="form-control bg-primary me-2" type="search" placeholder="<?= Yii::t('app', 'Märksõna(d)') ?>" aria-label="Keywords" name="q" value="<?= (isset($_GET["q"])?Html::encode($_GET["q"]):"") ?>">
-        <button class="btn btn-outline-light text-white" type="submit"><?= Yii::t('app', 'Otsi') ?></button>
+        <input class="form-control <?= $mode == "light" ? "text-black" : "" ?> bg-<?= $className ?> me-2" type="search" placeholder="<?= Yii::t('app', 'Märksõna(d)') ?>" aria-label="Keywords" name="q" value="<?= (isset($_GET["q"])?Html::encode($_GET["q"]):"") ?>">
+        <button class="btn btn-outline-<?= ($mode == "dark"?"light":"dark") ?> text-<?= ($mode == "dark"?"white":"black") ?>" type="submit"><?= Yii::t('app', 'Otsi') ?></button>
     </form>
 <?php
     NavBar::end();
