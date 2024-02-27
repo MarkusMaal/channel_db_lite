@@ -10,7 +10,7 @@ $this->title = Yii::t('site', 'Kanali andmebaas');
 
     <div class="jumbotron bg-transparent mt-5 mb-5">
         <h1 class="display-5"><?= Yii::t('app', 'Kanali andmebaas Lite') ?></h1>
-        <?php isset($_GET["q"])?Yii::$app->session->setFlash('info', Yii::t('site', 'Otsimiseks palun sisenege videote, ideede või galerii lehele')):"" ?>
+        <?php isset($_GET["q"])?Yii::$app->session->setFlash('blurple', Yii::t('site', 'Otsimiseks palun sisenege videote, ideede või galerii lehele')):"" ?>
         <p class="lead"><?= Yii::t('site', 'Uue koodiga versioon kanali andmebaasist, mis on kirjutatud {0}. Hetkel puuduvad teatud funktsioonid, sealhulgas...', ["<a class='link-blurple' href='https://yiiframework.com' target='_blank'>".Yii::t("site", "Yii raamistikus")."</a>"]) ?></p>
         <ul>
             <!--<li><?= Yii::t('site', 'Mitme keele tugi'); ?></li>-->
