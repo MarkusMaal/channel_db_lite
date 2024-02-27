@@ -28,7 +28,7 @@ $cross = "<span style=\"display: inline-block; width: 2em;\">&#x274C;</span>";
                 <?= nl2br(Html::encode("{$channel->Kirjeldus}")) ?>
             </p>
             <hr>
-            URL: <a target="_blank" class="text-decoration-none" href="<?= Html::encode("{$channel->URL}") ?>"><?= Html::encode("{$channel->URL}") ?></a>
+            URL: <a target="_blank" class="text-decoration-none text-skyblue" href="<?= Html::encode("{$channel->URL}") ?>"><?= Html::encode("{$channel->URL}") ?></a>
             <br>
             <br>
             <a class="btn btn-skyblue" onclick="window.history.back();"><?= Yii::t("app", "Tagasi") ?></a>
