@@ -48,7 +48,7 @@ switch (Yii::$app->controller->id) {
     NavBar::begin([
         'brandLabel' => Yii::$app->name,
         'brandUrl' => Yii::$app->homeUrl,
-        'options' => ['class' => 'navbar-expand-md navbar-'.$mode.' bg-'.$className.' fixed-top']
+        'options' => ['class' => 'd-flex navbar-expand-lg navbar-'.$mode.' bg-'.$className.' fixed-top']
     ]);
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav'],
@@ -57,10 +57,11 @@ switch (Yii::$app->controller->id) {
             ['label' => Yii::t('app', 'Ideed'), 'url' => ['/ideas/adv-search']],
             ['label' => Yii::t('app', 'Galerii'), 'url' => ['/gallery/index']],
             ['label' => Yii::t('app', 'Muuda keelt'), 'url' => ['/lang']],
+            ['label' => Yii::t('app', 'Avalehele'), 'url' => '/'],
         ]
     ]);
 ?>
-    <form class="d-flex <?= $mode ?>" method="get">
+    <form class="d-flex ms-auto <?= $mode ?>" method="get">
         <?php
             foreach ($_GET as $key => $value) { 
                 if ($key != "q") {
@@ -68,7 +69,7 @@ switch (Yii::$app->controller->id) {
                 }
             }
         ?>
-        <input class="form-control <?= $mode == "light" ? "text-black border-black" : "" ?> bg-<?= $className ?> me-2" type="search" placeholder="<?= Yii::t('app', 'Märksõna(d)') ?>" aria-label="Keywords" name="q" value="<?= (isset($_GET["q"])?Html::encode($_GET["q"]):"") ?>">
+        <input class="form-control flex-shrink-1<?= $mode == "light" ? "text-black border-black" : "" ?> bg-<?= $className ?> me-2" type="search" placeholder="<?= Yii::t('app', 'Märksõna(d)') ?>" aria-label="Keywords" name="q" value="<?= (isset($_GET["q"])?Html::encode($_GET["q"]):"") ?>">
         <button class="btn btn-outline-<?= ($mode == "dark"?"light":"dark") ?> text-<?= ($mode == "dark"?"white":"black") ?>" type="submit"><?= Yii::t('app', 'Otsi') ?></button>
     </form>
 <?php

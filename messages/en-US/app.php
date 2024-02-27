@@ -26,4 +26,5 @@ return [
     'Raport' => 'Report',
     'Kuva' => 'Show',
     'Laadi alla' => 'Download',
+    'Avalehele' => 'Home page',
 ];
