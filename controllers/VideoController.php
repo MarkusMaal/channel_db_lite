@@ -12,26 +12,7 @@ class VideoController extends Controller
     // all videos
     public function actionIndex()
     {
-        $query = Video::find();
-        $pagination = new Pagination([
-            'defaultPageSize' => $_COOKIE["results"]??20,
-            'totalCount' => $query->count(),
-        ]);
-
-        $videos = $query->orderBy('Kuupäev '.($_GET["ord"]??'DESC'))
-        ->offset($pagination->offset)
-        ->limit($pagination->limit)
-        ->all();
-
-        $categories = Video::find()->orderBy('Category')->select('Category,CategoryMUI_en')->distinct()->all();
-        $channels = Video::find()->orderBy('Kanal')->select('Kanal,KanalMUI_et,KanalMUI_en')->distinct()->all();
-        return $this->render('index', [
-            'videos'     => $videos,
-            'channels'   => $channels,
-            'pagination' => $pagination,
-            'categories' => $categories,
-            'years'      => array(),
-        ]);
+        return $this->redirect(['/video/adv-search']);
     }
 
     // single entry
@@ -39,30 +20,6 @@ class VideoController extends Controller
         $video = Video::findOne($id);
         return $this->render('view', [
             'video' => $video,
-        ]);
-    }
-
-    // simple search
-    public function actionSearch($q) {
-        $query = Video::find();
-        $query = $this->filterResults($query, $ch = "", $del = "-1", $sub = "-1", $pub = "-1", $live = "-1", $hd = "-1", $cat = "", $year = "");
-        $pagination = new Pagination([
-            'defaultPageSize' => $_COOKIE["results"]??20,
-            'totalCount' => $query->count(),
-        ]);
-
-        $videos = $query->orderBy('Kuupäev '.($_GET["ord"]??'DESC'))
-        ->offset($pagination->offset)
-        ->limit($pagination->limit)
-        ->all();
-        $categories = Video::find()->orderBy('Category')->select('Category,CategoryMUI_en')->distinct()->all();
-        $channels = Video::find()->orderBy('Kanal')->select('Kanal,KanalMUI_et,KanalMUI_en')->distinct()->all();
-        return $this->render('index', [
-            'videos'     => $videos,
-            'pagination' => $pagination,
-            'channels'   => $channels,
-            'categories' => $categories,
-            'years'      => array(),
         ]);
     }
 
@@ -81,7 +38,7 @@ class VideoController extends Controller
     }
 
     // advanced search (url: adv-search)
-    public function actionAdvSearch($q = "", $ch = "", $del = "-1", $sub = "-1", $pub = "-1", $live = "-1", $hd = "-1", $cat = "", $year = "") {
+    public function actionAdvSearch($q = "", $ch = "", $del = "-1", $sub = "-1", $pub = "-1", $live = "-1", $hd = "-1", $cat = "", $year = "", $sort = "Kuupäev") {
         $query = Video::find();
         $query = $this->filterResults($query, $q, $ch, $del, $sub, $pub, $live, $hd, $cat, $year);
         $pagination = new Pagination([
@@ -89,7 +46,9 @@ class VideoController extends Controller
             'totalCount' => $query->count(),
         ]);
 
-        $videos = $query->orderBy('Kuupäev '.($_GET["ord"]??'DESC'))
+        $videos = $query->orderBy([
+            $sort => ((isset($_GET["ord"]) && $_GET["ord"] == "ASC") ? SORT_ASC: SORT_DESC)
+        ])
         ->offset($pagination->offset)
         ->limit($pagination->limit)
         ->all();
@@ -102,9 +61,10 @@ class VideoController extends Controller
             'channels'   => $channels,
             'categories' => $categories,
             'years'      => $years,
+            'cols'       => Video::getTableSchema()->getColumnNames(),
         ]);
     }
-    public function actionReport($q = "", $ch = "", $del = "-1", $sub = "-1", $pub = "-1", $live = "-1", $hd = "-1", $cat = "", $year = "", $save = false, $frmt = "") {
+    public function actionReport($q = "", $ch = "", $del = "-1", $sub = "-1", $pub = "-1", $live = "-1", $hd = "-1", $cat = "", $year = "", $save = false, $frmt = "", $sort = "Kuupäev") {
         $query = Video::find();
         $query = $this->filterResults($query, $q, $ch, $del, $sub, $pub, $live, $hd, $cat, $year);
         $cols = Video::getTableSchema()->getColumnNames();
@@ -112,7 +72,9 @@ class VideoController extends Controller
         if ($frmt != "") {
             $format = $frmt;
         }
-        $videos = $query->orderBy('Kuupäev '.($_GET["ord"]??'DESC'))->all();
+        $videos = $query->orderBy([
+            $sort => ((isset($_GET["ord"]) && $_GET["ord"] == "ASC") ? SORT_ASC: SORT_DESC)
+        ])->all();
         switch ($format) {
             case "csv":
                 return Yii::t("app", "CSV raporti vormingut ei toetata");

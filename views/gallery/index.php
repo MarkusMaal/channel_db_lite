@@ -26,7 +26,21 @@ $filterset = [
     ],
 ];
 echo Filters::DisplayBooleanSelectors($preurl, $filterset);
+// excludes sutff, that can't be reasonably sorted (i.e. booleans)
+$unsortables = ["Kustutatud"];
 ?>
+<div class="dropdown d-inline ms-2">
+    <button class="btn btn-secondary dropdown-toggle" type="button" id="sortButton" data-bs-toggle="dropdown" aria-expanded="false">
+    <?= Yii::t('app', 'Sorteeri'); ?>
+    </button>
+    <ul class="dropdown-menu" aria-labelledby="sortButton">
+        <?php foreach($cols as $col) {
+            if (!in_array($col, $unsortables)) {
+                echo '<li><a class="dropdown-item" href="'. Filters::AddFilter($preurl, "sort", $col) .'">'.Html::encode($col).'</a></li>';
+            }
+        } ?>
+    </ul>
+</div>
 <div class="dropdown d-inline ms-2">
     <button class="btn btn-secondary dropdown-toggle" type="button" id="categorySelectButton" data-bs-toggle="dropdown" aria-expanded="false">
     <?= Yii::t('app', 'Raport'); ?>

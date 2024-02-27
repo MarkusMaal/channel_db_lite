@@ -11,24 +11,7 @@ class IdeasController extends Controller
 {
     public function actionIndex()
     {
-        $query = Ideas::find();
-        $pagination = new Pagination([
-            'defaultPageSize' => $_COOKIE["results"]??20,
-            'totalCount' => $query->count(),
-        ]);
-
-        $ideas = $query->orderBy('id '.($_GET["ord"]??'DESC'))
-        ->offset($pagination->offset)
-        ->limit($pagination->limit)
-        ->all();
-        $classes = Ideas::find()->orderBy('Klass')->select('Klass')->distinct()->all();
-        $channels = Ideas::find()->orderBy('Kanal')->select('Kanal')->distinct()->all();
-        return $this->render('index', [
-            'ideas'     => $ideas,
-            'pagination' => $pagination,
-            'channels'   => $channels,
-            'classes' => $classes,
-        ]);
+        return $this->redirect(["/ideas/adv-search"]);
     }
 
     public function actionView($id) {
@@ -48,7 +31,7 @@ class IdeasController extends Controller
         return $query;
     }
 
-    public function actionAdvSearch($q = '', $done = '', $class = '', $live = '', $ch = '') {
+    public function actionAdvSearch($q = '', $done = '', $class = '', $live = '', $ch = '', $sort = "id") {
         $query = Ideas::find();
         $query = $this->filterResults($query, $q, $done, $class, $live, $ch);
         $pagination = new Pagination([
@@ -56,7 +39,9 @@ class IdeasController extends Controller
             'totalCount' => $query->count(),
         ]);
 
-        $ideas = $query->orderBy('id '.($_GET["ord"]??'DESC'))
+        $ideas = $query->orderBy([
+            $sort => ((isset($_GET["ord"]) && $_GET["ord"] == "ASC") ? SORT_ASC: SORT_DESC)
+        ])
         ->offset($pagination->offset)
         ->limit($pagination->limit)
         ->all();
@@ -67,11 +52,12 @@ class IdeasController extends Controller
             'pagination' => $pagination,
             'channels'   => $channels,
             'classes' => $classes,
+            'cols'       => Ideas::getTableSchema()->getColumnNames(),
         ]);
     }
 
 
-    public function actionReport($q = '', $done = '', $class = '', $live = '', $ch = '', $save = false, $frmt = "") {
+    public function actionReport($q = '', $done = '', $class = '', $live = '', $ch = '', $save = false, $frmt = "", $sort = "id") {
         $query = Ideas::find();
         $query = $this->filterResults($query, $q, $done, $class, $live, $ch);
         $cols = Ideas::getTableSchema()->getColumnNames();
@@ -79,7 +65,9 @@ class IdeasController extends Controller
         if ($frmt != "") {
             $format = $frmt;
         }
-        $ideas = $query->orderBy('id '.($_GET["ord"]??'DESC'))->all();
+        $ideas = $query->orderBy(([
+            $sort => ((isset($_GET["ord"]) && $_GET["ord"] == "ASC") ? SORT_ASC: SORT_DESC)
+        ]))->all();
         switch ($format) {
             case "csv":
                 return Yii::t("app", "CSV raporti vormingut ei toetata");
