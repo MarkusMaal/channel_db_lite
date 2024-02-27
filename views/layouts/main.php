@@ -21,10 +21,12 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
 
 $className = "blurple";
 $mode = "dark";
+$extra = "";
 switch (Yii::$app->controller->id) {
     case "ideas":
         $className = "orangellow";
         $mode = "light";
+        $extra = "<style>.form-control::placeholder{color: black !important; opacity: 0.5}</style>";
         break;
     case "gallery":
         $className = "skyblue";
@@ -37,6 +39,7 @@ switch (Yii::$app->controller->id) {
 <head>
     <title><?= Html::encode($this->title) ?></title>
     <?php $this->head() ?>
+    <?= $extra ?>
 </head>
 <body class="d-flex flex-column h-100">
 <?php $this->beginBody() ?>
@@ -65,7 +68,7 @@ switch (Yii::$app->controller->id) {
                 }
             }
         ?>
-        <input class="form-control <?= $mode == "light" ? "text-black" : "" ?> bg-<?= $className ?> me-2" type="search" placeholder="<?= Yii::t('app', 'Märksõna(d)') ?>" aria-label="Keywords" name="q" value="<?= (isset($_GET["q"])?Html::encode($_GET["q"]):"") ?>">
+        <input class="form-control <?= $mode == "light" ? "text-black border-black" : "" ?> bg-<?= $className ?> me-2" type="search" placeholder="<?= Yii::t('app', 'Märksõna(d)') ?>" aria-label="Keywords" name="q" value="<?= (isset($_GET["q"])?Html::encode($_GET["q"]):"") ?>">
         <button class="btn btn-outline-<?= ($mode == "dark"?"light":"dark") ?> text-<?= ($mode == "dark"?"white":"black") ?>" type="submit"><?= Yii::t('app', 'Otsi') ?></button>
     </form>
 <?php
