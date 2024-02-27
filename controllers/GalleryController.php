@@ -1,6 +1,7 @@
 <?php
 namespace app\controllers;
 
+use Yii;
 use yii\web\Controller;
 use yii\data\Pagination;
 
@@ -10,9 +11,8 @@ class GalleryController extends Controller
 {
     public function actionIndex($q = '', $del = '-1')
     {
-        $query = Gallery::find()
-        ->where(["like", "CONCAT(Kanal,Kirjeldus,Loomiskuupäev,URL)", $q]);
-        if ($del != "-1") $query->andWhere("Kustutatud=:del", ["del" => $del]);
+        $query = Gallery::find();
+        $query = $this->filterResults($query, $q, $del);
         $pagination = new Pagination([
             'defaultPageSize' => $_COOKIE["results"]??20,
             'totalCount' => $query->count(),
@@ -33,5 +33,43 @@ class GalleryController extends Controller
         return $this->render('view', [
             'channel' => $channel,
         ]);
+    }
+
+    private function filterResults($query, $q, $del) {
+        $query->where(["like", "CONCAT(Kanal,Kirjeldus,Loomiskuupäev,URL)", $q]);
+        if ($del != "-1") $query->andWhere("Kustutatud=:del", ["del" => $del]);
+        return $query;
+    }
+
+    public function actionReport_($q = '', $del = '-1', $save = false, $frmt = "") {
+        $query = Gallery::find();
+        $query = $this->filterResults($query, $q, $del);
+        $cols = Gallery::getTableSchema()->getColumnNames();
+        $format = $_COOKIE["reportformat"]??"html";
+        if ($frmt != "") {
+            $format = $frmt;
+        }
+        $channels = $query->orderBy('Loomiskuupäev '.($_GET["ord"]??'DESC'))->all();
+        switch ($format) {
+            case "csv":
+                return Yii::t("app", "CSV raporti vormingut ei toetata");
+            case "json":
+                if ($save) {
+                    header("Content-type: application/json");
+                    header('Content-Disposition: attachment; filename="'.Yii::t("app", "vaste").'.json"'); 
+                }
+                return $this->asJson($channels);
+            case "html":
+            default:
+                if ($save) {
+                    header("Content-type: text/html");
+                    header('Content-Disposition: attachment; filename="'.Yii::t("app", "vaste").'.html"'); 
+                }
+                $this->layout = "report_html";
+                return $this->render('report', [
+                    'channels' => $channels,
+                    'cols' => $cols,
+                ]);
+        }
     }
 }

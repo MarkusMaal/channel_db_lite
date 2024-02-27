@@ -14,7 +14,7 @@ $this->title = Yii::t('site', 'Kanali andmebaas');
         <p class="lead"><?= Yii::t('site', 'Uue koodiga versioon kanali andmebaasist, mis on kirjutatud {0}. Hetkel puuduvad teatud funktsioonid, sealhulgas...', ["<a class='link-blurple' href='https://yiiframework.com' target='_blank'>".Yii::t("site", "Yii raamistikus")."</a>"]) ?></p>
         <ul>
             <!--<li><?= Yii::t('site', 'Mitme keele tugi'); ?></li>-->
-            <li><?= Yii::t('site', 'Raporti koostamine ja salvestamine erinevatesse formaatidesse'); ?></li>
+            <li><?= Yii::t('site', 'Raporti salvestamine CSV vormingusse'); ?></li>
             <li><?= Yii::t('site', 'Kommentaarid (videod alamleht)'); ?></li>
             <li><?= Yii::t('site', 'Tulemuste sorteerimine');?></li>
             <!--<li><?= Yii::t('site', 'Ühel leheküljel kuvatavate tulemuste arvu muutmine');?></li>-->

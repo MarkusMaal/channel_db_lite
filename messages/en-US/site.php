@@ -23,4 +23,5 @@ return [
     'Vana kanali andmebaas on täis haavatavusi ja veidraid bugisid, mis on vaja likvideerida' => 'The old channel database is full of vulnerabilities and weird bugs, which need to be eliminated',
     'Yii2 sisaldab paremaid silumistööriistu vigade leidmiseks' => 'Yii2 has better debugging tools for finding bugs',
     'Otsimiseks palun sisenege videote, ideede või galerii lehele' => 'To search, please go to videos, ideas, or gallery page',
+    'Raporti salvestamine CSV vormingusse' => 'Saving report to CSV format'
 ];

@@ -21,4 +21,9 @@ return [
     'Tagasi' => 'Go back',
     'Attribuudid' => 'Properties',
     'Filtrid' => 'Filters',
+    'CSV raporti vormingut ei toetata' => 'CSV report format not supported',
+    'vaste' => 'result',
+    'Raport' => 'Report',
+    'Kuva' => 'Show',
+    'Laadi alla' => 'Download',
 ];

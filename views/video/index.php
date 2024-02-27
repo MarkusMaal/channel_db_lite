@@ -101,6 +101,17 @@ $filterset = [
     ],
 ];
 echo Filters::DisplayBooleanSelectors($preurl, $filterset);
+?>
+<div class="dropdown d-inline ms-2">
+    <button class="btn btn-secondary dropdown-toggle" type="button" id="categorySelectButton" data-bs-toggle="dropdown" aria-expanded="false">
+    <?= Yii::t('app', 'Raport'); ?>
+    </button>
+    <ul class="dropdown-menu" aria-labelledby="categorySelectButton">
+            <li><a class="dropdown-item" href="<?= str_replace("video/adv-search", "video/report", $preurl); ?>"><?= Yii::t("app", "Kuva") ?></a></li>
+            <li><a class="dropdown-item" href="<?= Filters::AddFilter(str_replace("video/adv-search", "video/report", $preurl), "save", "true"); ?>"><?= Yii::t("app", "Laadi alla") ?></a></li>
+    </ul>
+</div>
+<?php
 echo Filters::DisplayFilters($filterset);
 ?>
 </div>
