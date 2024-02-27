@@ -31,7 +31,7 @@ $cross = "<span style=\"display: inline-block; width: 2em;\">&#x274C;</span>";
             URL: <a target="_blank" class="text-decoration-none" href="<?= Html::encode("{$channel->URL}") ?>"><?= Html::encode("{$channel->URL}") ?></a>
             <br>
             <br>
-            <a class="btn btn-primary" onclick="window.history.back();"><?= Yii::t("app", "Tagasi") ?></a>
+            <a class="btn btn-skyblue" onclick="window.history.back();"><?= Yii::t("app", "Tagasi") ?></a>
             <h2 class="mt-5"><?= Yii::t("app", "Attribuudid") ?></h2>
             <ul class="mb-3" style="list-style-type: none; margin: 0; padding: 0;">
                 <li><?= (($channel->Kustutatud)?$check:$cross) ?><?= Yii::t("gallery", "Kustutatud") ?></li>
