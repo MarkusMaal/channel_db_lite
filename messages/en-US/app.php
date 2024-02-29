@@ -13,6 +13,7 @@ return [
     'Täisversioon' => 'Full version',
     'Vana kujundus' => 'Old design',
     'Otsi' => 'Search',
+    'Sorteeri' => 'Sort',
     'Õigetpidi järjestus' => 'Ascending order',
     'Tagurpidi järjestus' => 'Descending order',
     'Leiti {0} vastet.' => 'Found {0} matches.',
