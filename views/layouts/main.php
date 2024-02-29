@@ -22,14 +22,20 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
 $className = "blurple";
 $mode = "dark";
 $extra = "";
+$dsearch = false;
 switch (Yii::$app->controller->id) {
     case "ideas":
         $className = "orangellow";
         $mode = "light";
         $extra = "<style>.form-control::placeholder{color: black !important; opacity: 0.5}</style>";
+        $dsearch = true;
         break;
     case "gallery":
         $className = "skyblue";
+        $dsearch = true;
+        break;
+    case "video":
+        $dsearch = true;
         break;
 }
 ?>
@@ -69,8 +75,10 @@ switch (Yii::$app->controller->id) {
                 }
             }
         ?>
+        <?php if ($dsearch) { ?>
         <input class="form-control flex-shrink-1<?= $mode == "light" ? "text-black border-black" : "" ?> bg-<?= $className ?> me-2" type="search" placeholder="<?= Yii::t('app', 'Märksõna(d)') ?>" aria-label="Keywords" name="q" value="<?= (isset($_GET["q"])?Html::encode($_GET["q"]):"") ?>">
         <button class="btn btn-outline-<?= ($mode == "dark"?"light":"dark") ?> text-<?= ($mode == "dark"?"white":"black") ?>" type="submit"><?= Yii::t('app', 'Otsi') ?></button>
+        <?php } ?>
     </form>
 <?php
     NavBar::end();
