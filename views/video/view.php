@@ -12,7 +12,9 @@ $cross = "<span style=\"display: inline-block; width: 2em;\">&#x274C;</span>";
 <div class='container mt-2 mb-2'>
     <div class='card mx-auto' style="width: 90%;">
         <a class="card-img-top text-center" href="<?= Url::to("@web/thumbs/".$video->ID.".jpg", true) ?>">
+            <?php if (file_exists(Yii::getAlias("@app/web/thumbs/".$video->ID.".jpg"))) { ?>
             <img width="500" src="<?= Url::to("@web/thumbs/".$video->ID.".jpg", true) ?>">
+            <?php } ?>
         </a>
         <div class="card-body">
             <h1 class="card-title"><?= LangUtils::GetMuiTitle(Yii::$app->language, $video) ?></h1>

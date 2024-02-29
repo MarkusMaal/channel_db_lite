@@ -156,7 +156,47 @@ echo Filters::DisplayFilters($filterset);
             <a href="<?= Url::to(["/video/view/", 'id' => $video->ID]) ?>" style="text-decoration: none;">
                 <div class='card my-5 mx-auto' style='width: 18rem;'>
                     <?php if (!isset($_COOKIE["thumbnails"]) || $_COOKIE["thumbnails"] != "false") {?>
-                    <img class="card-img-top" style="width: 100%;" src="<?= Url::to("@web/thumbs/".$video->ID.".jpg", true)?>">
+                    <?php
+                        if (!file_exists(Yii::getAlias("@app/web/thumbs/" . $video->ID . ".jpg"))) {
+                            $img = Yii::getAlias("@app/web/thumbs/{$video->ID}.jpg");
+                            $url = 'http://img.youtube.com/vi/' . str_replace('https://www.youtube.com/watch?v=', '', $video->URL) . '/maxresdefault.jpg';
+                            $ch = curl_init();
+                            curl_setopt($ch, CURLOPT_URL, $url); 
+                            curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); 
+                            $output = curl_exec($ch);   
+                            $http_status = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+                            if ($http_status == "404") {
+                                curl_close($ch);
+                                $url = 'http://img.youtube.com/vi/' . str_replace('https://www.youtube.com/watch?v=', '', $video->URL) . '/hqdefault.jpg';
+                                $ch = curl_init();
+                                curl_setopt($ch, CURLOPT_URL, $url); 
+                                curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+                                $output = curl_exec($ch);
+                                $http_status = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+                                curl_close($ch);
+                                if ($http_status == "404") {
+                                    $url = 'http://img.youtube.com/vi/' . str_replace('https://www.youtube.com/watch?v=', '', $video->URL) . '/sddefault.jpg';
+                                    $ch = curl_init();
+                                    curl_setopt($ch, CURLOPT_URL, $url); 
+                                    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+                                    $output = curl_exec($ch);
+                                    $http_status = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+                                    curl_close($ch);
+                                }
+                                $fp = fopen("$img", "w");
+                                fwrite($fp, $output);
+                                fclose($fp);
+                            } else {
+                                curl_close($ch);
+                                $fp = fopen($img, "w");
+                                fwrite($fp, $output);
+                                fclose($fp);
+                            }
+                            
+                        }
+                        $prefix = "";
+                        echo '<img class="card-img-top" style="width: 100%;" src="' . Url::to("@web/thumbs/".$video->ID.".jpg", true) . '"/>';
+                    ?>
                     <?php } ?>
                     <div class="card-body">
                         <h5 class="card-title"><?= LangUtils::GetMuiTitle(Yii::$app->language, $video) ?></h5>
