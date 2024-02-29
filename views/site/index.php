@@ -9,7 +9,7 @@ $this->title = Yii::t('site', 'Kanali andmebaas');
 <div class="site-index">
     <div class="jumbotron bg-light p-5 mt-5 mb-5 d-flex">
     <img class="me-5" src="<?= Url::to("@web/channel_db_lite.svg", true) ?>">
-        <div>asf
+        <div>
         <h1 class="display-5"><?= Yii::t('app', 'Kanali andmebaas Lite') ?></h1>
                 <?php isset($_GET["q"])?Yii::$app->session->setFlash('blurple', Yii::t('site', 'Otsimiseks palun sisenege videote, ideede või galerii lehele')):"" ?>
                 <p class="lead"><?= Yii::t('site', 'Uue koodiga versioon kanali andmebaasist, mis on kirjutatud {0}. Kanali andmebaas Lite ei sisalda üksikuid funktsioone, mis olid varasemas versioonis, sealhulgas...', ["<a class='link-blurple' href='https://yiiframework.com' target='_blank'>".Yii::t("site", "Yii raamistikus")."</a>"]) ?></p>
