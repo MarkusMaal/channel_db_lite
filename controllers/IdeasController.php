@@ -38,7 +38,12 @@ class IdeasController extends Controller
             'defaultPageSize' => $_COOKIE["results"]??20,
             'totalCount' => $query->count(),
         ]);
-
+        $cols = Ideas::getTableSchema()->getColumnNames();
+        $error = 0;
+        if (!in_array($sort, $cols)) {
+            $sort = "id";
+            $error = 1;
+        }
         $ideas = $query->orderBy([
             $sort => ((isset($_GET["ord"]) && $_GET["ord"] == "ASC") ? SORT_ASC: SORT_DESC)
         ])
@@ -52,7 +57,8 @@ class IdeasController extends Controller
             'pagination' => $pagination,
             'channels'   => $channels,
             'classes' => $classes,
-            'cols'       => Ideas::getTableSchema()->getColumnNames(),
+            'cols'       => $cols,
+            'error'      => $error
         ]);
     }
 
@@ -64,6 +70,9 @@ class IdeasController extends Controller
         $format = $_COOKIE["reportformat"]??"html";
         if ($frmt != "") {
             $format = $frmt;
+        }
+        if (!in_array($sort, $cols)) {
+            $sort = "id";
         }
         $ideas = $query->orderBy(([
             $sort => ((isset($_GET["ord"]) && $_GET["ord"] == "ASC") ? SORT_ASC: SORT_DESC)

@@ -17,7 +17,15 @@ class GalleryController extends Controller
             'defaultPageSize' => $_COOKIE["results"]??20,
             'totalCount' => $query->count(),
         ]);
-
+        $cols = Gallery::getTableSchema()->getColumnNames();
+        $error = 0;
+        if (!in_array($sort, $cols)) {
+            $sort = "Loomiskuupäev";
+            $error = 1;
+        }
+        if (!in_array($sort, $cols)) {
+            $sort = "Loomiskuupäev";
+        }
         $channels = $query->orderBy(([
             $sort => ((isset($_GET["ord"]) && $_GET["ord"] == "ASC") ? SORT_ASC: SORT_DESC)
         ]))
@@ -27,7 +35,8 @@ class GalleryController extends Controller
         return $this->render('index', [
             'channels'     => $channels,
             'pagination' => $pagination,
-            'cols'       => Gallery::getTableSchema()->getColumnNames(),
+            'cols'       => $cols,
+            'error'       => $error,
         ]);
     }
 
@@ -52,6 +61,11 @@ class GalleryController extends Controller
         if ($frmt != "") {
             $format = $frmt;
         }
+        $error = 0;
+        if (!in_array($sort, $cols)) {
+            $sort = "Loomiskuupäev";
+            $error = 1;
+        }
         $channels = $query->orderBy([
             $sort => ((isset($_GET["ord"]) && $_GET["ord"] == "ASC") ? SORT_ASC: SORT_DESC)
         ])->all();
@@ -74,6 +88,7 @@ class GalleryController extends Controller
                 return $this->render('report', [
                     'channels' => $channels,
                     'cols' => $cols,
+                    'error' => $error
                 ]);
         }
     }

@@ -10,7 +10,9 @@ require_once(dirname(__DIR__, 2)."/helpers/Filters.php");
 
 $this->title = Yii::t('videos', 'Videod') . (isset($_GET["page"])?" - ". Yii::t("videos", "Leht {0}", $_GET["page"]):"");
 $baseurl = str_replace($_SERVER["DOCUMENT_ROOT"], "", Yii::$app->basePath);
-
+if ($error == 1) {
+    echo Yii::$app->session->setFlash('danger', Yii::t('app', 'Tundmatu veerg: {0}', [Html::encode($_GET["sort"]??"")]));
+}
 ?>
 <div class="mx-auto text-center">
 <?php

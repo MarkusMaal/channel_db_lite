@@ -50,6 +50,12 @@ class VideoController extends Controller
             'totalCount' => $query->count(),
         ]);
 
+        $cols = Video::getTableSchema()->getColumnNames();
+        $error = 0;
+        if (!in_array($sort, $cols)) {
+            $sort = "Kuupäev";
+            $error = 1;
+        }
         $videos = $query->orderBy([
             $sort => ((isset($_GET["ord"]) && $_GET["ord"] == "ASC") ? SORT_ASC: SORT_DESC)
         ])
@@ -65,7 +71,8 @@ class VideoController extends Controller
             'channels'   => $channels,
             'categories' => $categories,
             'years'      => $years,
-            'cols'       => Video::getTableSchema()->getColumnNames(),
+            'cols'       => $cols,
+            'error'      => $error
         ]);
     }
     public function actionReport($q = "", $ch = "", $del = "-1", $sub = "-1", $pub = "-1", $live = "-1", $hd = "-1", $cat = "", $year = "", $save = false, $frmt = "", $sort = "Kuupäev") {
@@ -75,6 +82,9 @@ class VideoController extends Controller
         $format = $_COOKIE["reportformat"]??"html";
         if ($frmt != "") {
             $format = $frmt;
+        }
+        if (!in_array($sort, $cols)) {
+            $sort = "Kuupäev";
         }
         $videos = $query->orderBy([
             $sort => ((isset($_GET["ord"]) && $_GET["ord"] == "ASC") ? SORT_ASC: SORT_DESC)

@@ -10,6 +10,9 @@ $this->title = Yii::t("ideas", "Ideed") . (isset($_GET["page"])?" - ".Yii::t("id
 $preurl =Yii::$app->request->getUrl();
 $ord = isset($_GET["ord"]) ? $_GET["ord"] : "DESC";
 $nord = $ord == "ASC" ? "DESC" : "ASC";
+if ($error == 1) {
+    echo Yii::$app->session->setFlash('danger', Yii::t('app', 'Tundmatu veerg: {0}', [Html::encode($_GET["sort"]??"")]));
+}
 ?>
 <div class="mx-auto text-center">
 <?php

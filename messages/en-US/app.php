@@ -29,4 +29,5 @@ return [
     'Laadi alla' => 'Download',
     'Avalehele' => 'Home page',
     'Kommentaarid' => 'Comments',
+    'Tundmatu veerg: {0}' => 'Unknown column: {0}'
 ];
