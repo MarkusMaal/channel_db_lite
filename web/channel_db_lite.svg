@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="255.99998"
+   height="255.99998"
+   viewBox="0 0 67.733328 67.733329"
+   version="1.1"
+   id="svg1"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs1">
+    <marker
+       style="overflow:visible"
+       id="Triangle"
+       refX="0"
+       refY="0"
+       orient="auto-start-reverse"
+       markerWidth="3.0009999"
+       markerHeight="0.001"
+       viewBox="0 0 1 1"
+       preserveAspectRatio="xMidYMid">
+      <path
+         transform="scale(0.5)"
+         style="fill:context-stroke;fill-rule:evenodd;stroke:context-stroke;stroke-width:1pt"
+         d="M 5.77,0 -2.88,5 V -5 Z"
+         id="path135" />
+    </marker>
+    <marker
+       style="overflow:visible"
+       refX="-6.5"
+       refY="4"
+       orient="auto"
+       id="ColoredDiamond"
+       markerWidth="1"
+       markerHeight="1"
+       viewBox="0 0 1 1"
+       preserveAspectRatio="xMidYMid">
+      <path
+         transform="scale(0.45)"
+         style="fill:context-fill;fill-rule:evenodd;stroke:context-stroke;stroke-width:2"
+         d="M 0,-7.0710768 -7.0710894,0 0,7.0710589 7.0710462,0 Z"
+         id="path22" />
+    </marker>
+    <linearGradient
+       id="linearGradient3">
+      <stop
+         style="stop-color:#7c46e0;stop-opacity:0.74779814;"
+         offset="0.00085086"
+         id="stop3" />
+      <stop
+         style="stop-color:#6e4bff;stop-opacity:0.59559715;"
+         offset="0.99829775"
+         id="stop4" />
+    </linearGradient>
+    <linearGradient
+       id="linearGradient1">
+      <stop
+         style="stop-color:#432fff;stop-opacity:1;"
+         offset="0"
+         id="stop1" />
+      <stop
+         style="stop-color:#ab7aff;stop-opacity:1;"
+         offset="1"
+         id="stop2" />
+    </linearGradient>
+    <linearGradient
+       xlink:href="#linearGradient1"
+       id="linearGradient2"
+       x1="1.9286785"
+       y1="35.28751"
+       x2="64.122299"
+       y2="35.477993"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(0.95075271,0,0,0.95075271,1.6393243,1.674562)" />
+    <linearGradient
+       xlink:href="#linearGradient3"
+       id="linearGradient4"
+       x1="1.3155649"
+       y1="33.977924"
+       x2="66.59256"
+       y2="33.977924"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(0.95075271,0,0,0.95075271,1.6393243,1.674562)" />
+  </defs>
+  <g
+     id="layer1">
+    <path
+       style="fill:url(#linearGradient2);fill-opacity:1;stroke:url(#linearGradient4);stroke-width:4.754;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1;marker-start:url(#ColoredDiamond);marker-mid:url(#Triangle)"
+       d="M 3.4866983,3.5874833 3.5725053,64.370841 64.355857,35.71644 Z"
+       id="path1" />
+  </g>
+</svg>
