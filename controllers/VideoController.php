@@ -3,10 +3,12 @@ namespace app\controllers;
 
 use app\models\GeneralComments;
 use Yii;
+use yii\web\BadRequestHttpException;
 use yii\web\Controller;
 use yii\data\Pagination;
 
 use app\models\Video;
+use yii\web\NotFoundHttpException;
 
 class VideoController extends Controller
 {
@@ -18,7 +20,17 @@ class VideoController extends Controller
 
     // single entry
     public function actionView($id) {
+        require_once(Yii::getAlias("@app/helpers/InitLang.php"));
+        if (!preg_match("[[0-9]+]", $id)) {
+            throw new BadRequestHttpException(Yii::t("app", "Video ID peab olema numbriline väärtus"));
+        }
         $video = Video::findOne($id);
+        // 00, 000, 0000, etc. aren't numbers, so let's play a special video instead of showing an error ---____---
+        if (preg_match('[^0[0+]]', $id)) {
+            return $this->redirect('https://www.youtube.com/watch?v=O4exTs8FQaw');
+        } else if ($video == null) {
+            throw new NotFoundHttpException(Yii::t("app", "Video ei ole andmebaasis"));
+        }
         // SELECT * FROM general_comments WHERE PAGE_ID = $id AND THREAD = 1 AND REPLY = 0 ORDER BY(ID) DESC
         $comments = GeneralComments::find()->where(["PAGE_ID" => $id])->andWhere((["THREAD" => "1"]))->andWhere((["REPLY" => "0"]))->orderBy(["id" => SORT_DESC])->all();
         return $this->render('view', [
@@ -43,6 +55,10 @@ class VideoController extends Controller
 
     // advanced search (url: adv-search)
     public function actionAdvSearch($q = "", $ch = "", $del = "-1", $sub = "-1", $pub = "-1", $live = "-1", $hd = "-1", $cat = "", $year = "", $sort = "Kuupäev") {
+        require_once(Yii::getAlias("@app/helpers/InitLang.php"));
+        if ($year != "" && (!preg_match("[[0-9]+]", $year) || preg_match("[^0]", $year))) {
+            throw new BadRequestHttpException(Yii::t("app", "Aastaarv peab olema numbriline väärtus"));
+        }
         $query = Video::find();
         $query = $this->filterResults($query, $q, $ch, $del, $sub, $pub, $live, $hd, $cat, $year);
         $pagination = new Pagination([
@@ -76,6 +92,10 @@ class VideoController extends Controller
         ]);
     }
     public function actionReport($q = "", $ch = "", $del = "-1", $sub = "-1", $pub = "-1", $live = "-1", $hd = "-1", $cat = "", $year = "", $save = false, $frmt = "", $sort = "Kuupäev") {
+        require_once(Yii::getAlias("@app/helpers/InitLang.php"));
+        if ($year != "" && (!preg_match("[[0-9]+]", $year) || preg_match("[^0]", $year))) {
+            throw new BadRequestHttpException(Yii::t("app", "Aastaarv peab olema numbriline väärtus"));
+        }
         $query = Video::find();
         $query = $this->filterResults($query, $q, $ch, $del, $sub, $pub, $live, $hd, $cat, $year);
         $cols = Video::getTableSchema()->getColumnNames();

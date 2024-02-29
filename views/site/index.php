@@ -11,15 +11,10 @@ $this->title = Yii::t('site', 'Kanali andmebaas');
     <div class="jumbotron bg-transparent mt-5 mb-5">
         <h1 class="display-5"><?= Yii::t('app', 'Kanali andmebaas Lite') ?></h1>
         <?php isset($_GET["q"])?Yii::$app->session->setFlash('blurple', Yii::t('site', 'Otsimiseks palun sisenege videote, ideede või galerii lehele')):"" ?>
-        <p class="lead"><?= Yii::t('site', 'Uue koodiga versioon kanali andmebaasist, mis on kirjutatud {0}. Hetkel puuduvad teatud funktsioonid, sealhulgas...', ["<a class='link-blurple' href='https://yiiframework.com' target='_blank'>".Yii::t("site", "Yii raamistikus")."</a>"]) ?></p>
+        <p class="lead"><?= Yii::t('site', 'Uue koodiga versioon kanali andmebaasist, mis on kirjutatud {0}. Kanali andmebaas Lite ei sisalda üksikuid funktsioone, mis olid varasemas versioonis, sealhulgas...', ["<a class='link-blurple' href='https://yiiframework.com' target='_blank'>".Yii::t("site", "Yii raamistikus")."</a>"]) ?></p>
         <ul>
-            <!--<li><?= Yii::t('site', 'Mitme keele tugi'); ?></li>-->
             <li><?= Yii::t('site', 'Raporti salvestamine CSV vormingusse'); ?></li>
-            <!--<li><?= Yii::t('site', 'Kommentaarid (videod alamleht)'); ?></li>-->
-            <!--<li><?= Yii::t('site', 'Tulemuste sorteerimine');?></li>-->
-            <!--<li><?= Yii::t('site', 'Ühel leheküljel kuvatavate tulemuste arvu muutmine');?></li>-->
-            <!--<li><?= Yii::t('site', 'Piltide peitmine tulemustelehelt');?></li>-->
-            <li><?= Yii::t('site', 'Pärandrežiim (pole plaanis seda lisada, sest selle väärtus varasemas versioonis oli ka kaheldav)'); ?></li>
+            <li><?= Yii::t('site', 'Pärandrežiim'); ?></li>
         </ul>
         <h3 style="font-weight: normal;"><?= Yii::t('site', 'Kuid milleks luua veel üks uus version kanali andmebaasist?'); ?></h3>
         <p><?= Yii::t('site', 'Põhjuseid on mitmeid, kuid siin on mõned olulisemad:') ?></p>

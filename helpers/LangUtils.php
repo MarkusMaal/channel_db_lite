@@ -15,6 +15,9 @@ class LangUtils {
     }
 
     public static function GetMuiTitle($lang, $video) {
+        if ($video === null) {
+            return null;
+        }
         $primary = $video->Video;
         $mui_et = $video->TitleMUI_et;
         $mui_en = $video->TitleMUI_en;
@@ -22,6 +25,9 @@ class LangUtils {
     }
 
     public static function GetMuiDesc($lang, $video) {
+        if ($video === null) {
+            return null;
+        }
         $primary = $video->Kirjeldus;
         $mui_et = $video->KirjeldusMUI_et;
         $mui_en = $video->KirjeldusMUI_en;
@@ -29,12 +35,18 @@ class LangUtils {
     }
 
     public static function GetMuiChannel($lang, $video) {
+        if ($video === null) {
+            return null;
+        }
         $primary = $video->Kanal;
         $mui_et = $video->KanalMUI_et;
         $mui_en = $video->KanalMUI_en;
         return LangUtils::GetLangValue($primary, $mui_et, $mui_en, $lang);
     }
     public static function GetMuiCategory($lang, $video) {
+        if ($video === null) {
+            return null;
+        }
         if ($lang == "et-EE") {
             return $video->Category;
         } else {

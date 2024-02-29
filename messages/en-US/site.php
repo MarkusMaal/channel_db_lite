@@ -5,7 +5,7 @@
  */
 return [
     'Kanali andmebaas' => 'Channel database',
-    'Uue koodiga versioon kanali andmebaasist, mis on kirjutatud {0}. Hetkel puuduvad teatud funktsioonid, sealhulgas...' => 'A version of channel database, which is written in {0}. Currently, certain features are missing, which includes...',
+    'Uue koodiga versioon kanali andmebaasist, mis on kirjutatud {0}. Kanali andmebaas Lite ei sisalda üksikuid funktsioone, mis olid varasemas versioonis, sealhulgas...' => 'A version of channel database, which is written in {0}. Channel database Lite does not include certain features, which were in the previous version, including...',
     'Yii raamistikus' => 'in Yii framework',
     'Mitme keele tugi' => 'Multiple language support',
     'Raporti koostamine ja salvestamine erinevatesse formaatidesse' => 'Create and save reports to various formats',
@@ -13,7 +13,7 @@ return [
     'Tulemuste sorteerimine' => 'Sorting of results',
     'Ühel leheküljel kuvatavate tulemuste arvu muutmine' => 'Limiting of results per page',
     'Piltide peitmine tulemustelehelt' => 'Hiding of images from results page',
-    'Pärandrežiim (pole plaanis seda lisada, sest selle väärtus varasemas versioonis oli ka kaheldav)' => 'Legacy mode (no plans to add it, since its value was questionable even in the previous version)',
+    'Pärandrežiim' => 'Legacy mode',
     'Kuid milleks luua veel üks uus version kanali andmebaasist?' => 'But why make yet another version of the channel database?',
     'Põhjuseid on mitmeid, kuid siin on mõned olulisemad:' => 'There are multiple reasons, the most important of which are the following:',
     'Hoolimata sellest, et kanali andmebaas näeb väga viisakas välja, kasutab see endiselt 2020. aastal kirjutatud koodi. See on oluline, sest:' => 'Altough the channel database looks very nice by itself, it is still using code written in 2020. This is important, because...',

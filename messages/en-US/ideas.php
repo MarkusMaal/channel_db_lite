@@ -12,4 +12,5 @@ return [
     'Ülekanne' => 'Stream',
     'Valmis' => 'Done',
     'Klass' => 'Class',
+    'Klass peab olema naturaalarv' => 'Class must be a positive integer',
 ];

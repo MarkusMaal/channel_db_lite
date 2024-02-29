@@ -2,6 +2,7 @@
 namespace app\controllers;
 
 use Yii;
+use yii\web\BadRequestHttpException;
 use yii\web\Controller;
 use yii\data\Pagination;
 
@@ -32,6 +33,10 @@ class IdeasController extends Controller
     }
 
     public function actionAdvSearch($q = '', $done = '', $class = '', $live = '', $ch = '', $sort = "id") {
+        require_once(Yii::getAlias("@app/helpers/InitLang.php"));
+        if ($class != "" && (!preg_match("[[0-9]+]", $class) || preg_match("[^0]", $class) || $class < 1)) {
+            throw new BadRequestHttpException(Yii::t("ideas", "Klass peab olema naturaalarv"));
+        }
         $query = Ideas::find();
         $query = $this->filterResults($query, $q, $done, $class, $live, $ch);
         $pagination = new Pagination([

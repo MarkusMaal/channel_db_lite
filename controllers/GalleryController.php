@@ -2,6 +2,7 @@
 namespace app\controllers;
 
 use Yii;
+use yii\web\BadRequestHttpException;
 use yii\web\Controller;
 use yii\data\Pagination;
 
@@ -70,8 +71,6 @@ class GalleryController extends Controller
             $sort => ((isset($_GET["ord"]) && $_GET["ord"] == "ASC") ? SORT_ASC: SORT_DESC)
         ])->all();
         switch ($format) {
-            case "csv":
-                return Yii::t("app", "CSV raporti vormingut ei toetata");
             case "json":
                 if ($save) {
                     header("Content-type: application/json");

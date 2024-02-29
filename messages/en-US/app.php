@@ -29,5 +29,8 @@ return [
     'Laadi alla' => 'Download',
     'Avalehele' => 'Home page',
     'Kommentaarid' => 'Comments',
-    'Tundmatu veerg: {0}' => 'Unknown column: {0}'
+    'Tundmatu veerg: {0}' => 'Unknown column: {0}',
+    'Aastaarv peab olema numbriline väärtus' => 'The year must be a numerical value',
+    'Video ei ole andmebaasis' => 'Video not in database',
+    'Video ID peab olema numbriline väärtus' => 'The video ID must be a numerical value'
 ];
