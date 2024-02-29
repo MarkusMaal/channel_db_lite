@@ -15,7 +15,7 @@ $this->title = Yii::t('site', 'Kanali andmebaas');
         <ul>
             <!--<li><?= Yii::t('site', 'Mitme keele tugi'); ?></li>-->
             <li><?= Yii::t('site', 'Raporti salvestamine CSV vormingusse'); ?></li>
-            <li><?= Yii::t('site', 'Kommentaarid (videod alamleht)'); ?></li>
+            <!--<li><?= Yii::t('site', 'Kommentaarid (videod alamleht)'); ?></li>-->
             <!--<li><?= Yii::t('site', 'Tulemuste sorteerimine');?></li>-->
             <!--<li><?= Yii::t('site', 'Ühel leheküljel kuvatavate tulemuste arvu muutmine');?></li>-->
             <!--<li><?= Yii::t('site', 'Piltide peitmine tulemustelehelt');?></li>-->

@@ -46,12 +46,22 @@ $cross = "<span style=\"display: inline-block; width: 2em;\">&#x274C;</span>";
             <h2 class="mt-3"><?=!empty(trim($video->Tags))?Yii::t("videos", "Sildid"):""?></h2>
             <p>
                 <?php
+
+	                require_once Yii::getAlias("@app/helpers/Comments.php");
                     foreach ($tags as $tag) {
                         $tag = trim($tag);
                         echo "<a href='".Url::to(["/video/adv-search/", 'q' => $tag])."'><span class=\"bg-secondary mx-1 badge badge-pill badge-primary\">".$tag."</span></a>";
                     }
                 ?>
             </p>
+            <?php 
+                if ($comments) {
+                    echo '<h2 class="mt-3">'. Yii::t("app", "Kommentaarid") .'</h2>';
+                    foreach ($comments as $comment) {
+                        DisplayComments($comment, $video->ID);
+                    }
+                }
+            ?>
         </div>
     </div>
 </div>

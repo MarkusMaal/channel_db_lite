@@ -1,6 +1,7 @@
 <?php
 namespace app\controllers;
 
+use app\models\GeneralComments;
 use Yii;
 use yii\web\Controller;
 use yii\data\Pagination;
@@ -18,8 +19,11 @@ class VideoController extends Controller
     // single entry
     public function actionView($id) {
         $video = Video::findOne($id);
+        // SELECT * FROM general_comments WHERE PAGE_ID = $id AND THREAD = 1 AND REPLY = 0 ORDER BY(ID) DESC
+        $comments = GeneralComments::find()->where(["PAGE_ID" => $id])->andWhere((["THREAD" => "1"]))->andWhere((["REPLY" => "0"]))->orderBy(["id" => SORT_DESC])->all();
         return $this->render('view', [
             'video' => $video,
+            'comments' => $comments,
         ]);
     }
 

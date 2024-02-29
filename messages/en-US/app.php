@@ -27,4 +27,5 @@ return [
     'Kuva' => 'Show',
     'Laadi alla' => 'Download',
     'Avalehele' => 'Home page',
+    'Kommentaarid' => 'Comments',
 ];
