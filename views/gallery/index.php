@@ -84,7 +84,7 @@ echo Filters::DisplayFilters($filterset);
         <?php foreach ($channels as $channel): ?>
             <?php
                 $logoid = 1;
-                while (file_exists("gallery/logos/".$channel->ID."/".$logoid.".png")) {
+                while (file_exists("gallery_/logos/".$channel->ID."/".$logoid.".png")) {
                     $logoid++;
                 }
                 $logoid--;
@@ -93,7 +93,7 @@ echo Filters::DisplayFilters($filterset);
                 <a href="<?= Url::to(["/gallery/view/", "id" => $channel->ID]) ?>" style="text-decoration: none;">
                     <div class='card my-5 mx-auto' style='width: 18rem;'>
                         <?php if (!isset($_COOKIE["thumbnails"]) || $_COOKIE["thumbnails"] != "false") {?>
-                        <img class="card-img-top" style="width: 100%;" src="<?= Url::to("@web/gallery/logos/".$channel->ID."/".$logoid.".png", true) ?>">
+                        <img class="card-img-top" style="width: 100%;" src="<?= Url::to("@web/gallery_/logos/".$channel->ID."/".$logoid.".png", true) ?>">
                         <?php } ?>
                         <div class="card-body">
                             <h5 class="card-title"><?= Html::encode("{$channel->Kanal}") ?></h5>

@@ -1,0 +1,15 @@
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+</IfModule>
+
+<IfModule mod_rewrite.c>
+    RewriteCond %{REQUEST_URI} ^/.*
+    #RewriteRule ^assets/(.*)$ /web/assets/$1 [L]
+    #RewriteRule ^css/(.*)$ web/css/$1 [L]
+    #RewriteRule ^js/(.*)$ web/js/$1 [L]
+    RewriteRule ^gallery_/(.*)$ web/gallery_/$1 [L]
+    RewriteRule ^thumbs/(.*)$ web/thumbs/$1 [L]
+    RewriteRule ^(.*)$ web/$1 [L]
+
+    RewriteCond %{REQUEST_URI} !^/web/
+</IfModule> 

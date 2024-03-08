@@ -16,9 +16,9 @@ $cross = "<span style=\"display: inline-block; width: 2em;\">&#x274C;</span>";
             <p><?= Yii::t("gallery", "Logode ajalugu") ?>:</p>
             <?php
                 for ( $logoid = 1; $logoid < 999; $logoid++ ) {
-                    if (file_exists("gallery/logos/".$channel->ID."/".$logoid.".png")) {
-                        echo "<a href='".Url::to("@web/gallery/logos/{$channel->ID}/{$logoid}.png", true)."'>";
-                        echo "<img src='".Url::to("@web/gallery/logos/{$channel->ID}/{$logoid}.png", true)."' style='width: 200px;'>";
+                    if (file_exists("gallery_/logos/".$channel->ID."/".$logoid.".png")) {
+                        echo "<a href='".Url::to("@web/gallery_/logos/{$channel->ID}/{$logoid}.png", true)."'>";
+                        echo "<img src='".Url::to("@web/gallery_/logos/{$channel->ID}/{$logoid}.png", true)."' style='width: 200px;'>";
                         echo "</a>";
                     }
                 }
