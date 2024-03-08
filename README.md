@@ -11,6 +11,7 @@ Projekti struktuur
       commands/           contains console commands (controllers)
       config/             contains application configurations
       controllers/        contains Web controller classes
+      helpers/            contains helper functions
       mail/               contains view files for e-mails
       models/             contains model classes
       runtime/            contains files generated during runtime
@@ -22,48 +23,30 @@ Projekti struktuur
 Nõuded
 ------------
 
-The minimum requirement by this project template that your Web server supports PHP 7.4.
+- PHP 7.4 või uuem
+- Composer
 
 Paigaldamine
 ------------
+1. Panna püsti WAMP, LAMP või MAMP server
+2. Konfigureerida andmebaas ja meelde jätta andmebaasi logimisandmed
+3. Laadi alla composer ja paigalda see ([getcomposer.org](https://getcomposer.org))
+4. Pane projekt veebiserveri juurkataloogi ja channel_db_lite alamkataloogis käivita `composer install`
+5. `config` kataloogis loo **db.php** fail, kopeeri sinna **db_sample.php** sisu
+6. Muuda db.php sisu
+    - Asenda **DATABASE** andmebaasi nimega
+    - **localhost** andmebaasi hostinimega (kui samas serveris, siis localhost sobib)
+    - Asenda **USERNAME** andmebaasi kasutajanimega
+    - Asenda **PASSWORD** andmebaasi parooliga
+7. Loo web-is alamkataloogid **gallery_/logos** ja **thumbs** või loo symlink **gallery_** ja **thumbs** jaoks symlinkid vastavatesse vana andmebaasi alamkataloogidesse (nt *channel_db/gallery* ja *channel_db/thumbs*)
+8. Olge kindlad, et thumbs kataloogil oleks kirjutamisõigus
 
-### Install via Composer
-
-If you do not have [Composer](https://getcomposer.org/), you may install it by following the instructions
-at [getcomposer.org](https://getcomposer.org/doc/00-intro.md#installation-nix).
-
-You can then install this project template using the following command:
-
-~~~
-composer create-project --prefer-dist yiisoft/yii2-app-basic basic
-~~~
-
-Now you should be able to access the application through the following URL, assuming `basic` is the directory
-directly under the Web root.
-
-~~~
-http://localhost/basic/web/
-~~~
-
-Konfiguratsioon
+Andmete muutmine
 -------------
+Selleks, et tekstilisi andmeid muuta, peate püsti panema markusmaal.ee veebiserveri minimaalse konfiguratsiooniga. Lisainfo [siin](https://github.com/MarkusMaal/www). Seejärel, saate andmeid muuta admin keskkonnas "Kanali andmebaasid" lehelt, mille leiate "Globaalse" menüü alt.
 
-### Database
+### Pisipildid
+Kanali andmebaas Lite laeb automaatselt alla pisipildid YouTube-i kaudu. Kui soovite käsitsi lisada videole pisipildi, lisage thumbs kausta pilt nimega `<video ID>.jpg` (nt 1.jpg, 213.jpg jne).
 
-Edit the file `config/db.php` with real data, for example:
-
-```php
-return [
-    'class' => 'yii\db\Connection',
-    'dsn' => 'mysql:host=localhost;dbname=yii2basic',
-    'username' => 'root',
-    'password' => '1234',
-    'charset' => 'utf8',
-];
-```
-
-**NOTES:**
-
-- Yii won't create the database for you, this has to be done manually before you can access it.
-- Check and edit the other files in the `config/` directory to customize your application as required.
-- Refer to the README in the `tests` directory for information specific to basic application tests.
+### Kanali logod galeriis
+Logod tuleb käsitsi lisada kataloogi `@web/gallery_/<kanali ID>`. Logofailid ise on nimetatud järgmises formaadis: `<jrk nr>.png`.
