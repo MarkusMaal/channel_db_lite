@@ -20,8 +20,6 @@ $this->title = Yii::t('site', 'Kanali andmebaas');
         <a class="btn btn-lg btn-blurple me-2" href="<?= Url::to(["/video/adv-search"]) ?>"><?= Yii::t("app", "Videod") ?></a>
         <a class="btn btn-lg btn-orangellow me-2" href="<?= Url::to(["/ideas/adv-search"]) ?>"><?= Yii::t("app", "Ideed") ?></a>
         <a class="btn btn-lg btn-skyblue me-2" href="<?= Url::to(["/gallery/index"]) ?>"><?= Yii::t("app", "Galerii") ?></a>
-        <a class="btn btn-lg btn-primary me-2" href="<?= Url::to("/channel_db?ord=id&dir=DESC", true) ?>"><?= Yii::t("app", "Täisversioon") ?></a>
-        <a class="btn btn-lg btn-secondary" href="<?= Url::to("https://markustegelane.eu/channel_db_old") ?>"><?= Yii::t("app", "Vana kujundus") ?></a>
         </div>
     </div>
     <div>
