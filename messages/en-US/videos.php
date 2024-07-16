@@ -21,4 +21,5 @@ return [
     'Ava video ({0})' => 'Open video ({0})',
     'HD' => 'HD',
     'Sildid' => 'Tags',
+    'Vaata/Laadi alla' => 'Watch/Download',
 ];

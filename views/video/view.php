@@ -29,6 +29,9 @@ $cross = "<span style=\"display: inline-block; width: 2em;\">&#x274C;</span>";
             </p>
             <br>
             <?php
+            if (file_exists($_SERVER["DOCUMENT_ROOT"] . Yii::getAlias("@web/stream/" . $video->ID . ".mp4"))) {
+                echo '<a class="btn btn-blurple mx-2" target="_blank" href="'. Url::to("@web/stream/".$video->ID.".mp4", true) . '">'.Yii::t('videos', 'Vaata/Laadi alla').'</a>';
+            }
             if ($video->URL != "N/A") { echo '<a class="btn btn-blurple mx-2" target="_blank" href="'.Html::encode($video->URL).'">'.Yii::t('videos', 'Ava video ({0})', ['YouTube']).'</a>'; }
             if ($video->OdyseeURL != "N/A") { echo '<a class="btn btn-blurple mx-2" target="_blank" href="'.Html::encode($video->OdyseeURL).'">'.Yii::t('videos', 'Ava video ({0})', ['Odysee']).'</a>'; }
             ?>

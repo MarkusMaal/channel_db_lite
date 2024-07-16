@@ -44,3 +44,4 @@ tests/_support/_generated
 # channel_db media folders
 /web/gallery_
 /web/thumbs
+/web/stream
