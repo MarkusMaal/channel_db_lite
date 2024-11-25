@@ -109,6 +109,16 @@ class VideoController extends Controller
         $videos = $query->orderBy([
             $sort => ((isset($_GET["ord"]) && $_GET["ord"] == "ASC") ? SORT_ASC: SORT_DESC)
         ])->all();
+        $cols[] = "has_thumbnail";
+        $cols[] = "local_stream";
+        foreach ($videos as $video) {
+            $thumb_path = Yii::getAlias("@app/web/thumbs") . "/" . $video->getAttributes()["ID"] . ".jpg";
+            $vid_path = Yii::getAlias("@app/web/stream") . "/" . $video->getAttributes()["ID"] . ".mp4";
+            $www_thumb_path = Yii::getAlias("@web/thumbs") . "/" . $video->getAttributes()["ID"] . ".jpg";
+            $www_vid_path = Yii::getAlias("@web/stream") . "/" . $video->getAttributes()["ID"] . ".mp4";
+            $video["has_thumbnail"] = file_exists($thumb_path) ? $www_thumb_path : "N/A";
+            $video["local_stream"] = file_exists($vid_path) ? $www_vid_path : "N/A";
+        }
         switch ($format) {
             case "csv":
                 return Yii::t("app", "CSV raporti vormingut ei toetata");
