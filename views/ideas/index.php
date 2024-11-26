@@ -119,7 +119,7 @@ echo Filters::DisplayFilters($filterset);
         <?php foreach ($ideas as $idea): ?>
             <li class='list-group-item d-flex justify-content-between align-items-start'>
                 <a href="<?= Url::to(["/ideas/view/", "id" => $idea->id]) ?>" style="text-decoration: none;">
-                    <div class="ms-2 me-auto text-black">
+                    <div class="ms-2 me-auto <?= (Yii::$app->params["theme"] == "light" ? "text-black" : "text-white") ?>"">
                         <div class="fw-bold"><?= $idea->Video ?></div>
                         <?= $idea->Kanal ?>
                     </div>

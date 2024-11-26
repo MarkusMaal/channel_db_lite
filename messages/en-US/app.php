@@ -32,5 +32,7 @@ return [
     'Tundmatu veerg: {0}' => 'Unknown column: {0}',
     'Aastaarv peab olema numbriline väärtus' => 'The year must be a numerical value',
     'Video ei ole andmebaasis' => 'Video not in database',
-    'Video ID peab olema numbriline väärtus' => 'The video ID must be a numerical value'
+    'Video ID peab olema numbriline väärtus' => 'The video ID must be a numerical value',
+    'Hele teema' => 'Light theme',
+    'Tume teema' => 'Dark theme',
 ];

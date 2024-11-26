@@ -47,9 +47,9 @@ switch (Yii::$app->controller->id) {
     <?php $this->head() ?>
     <?= $extra ?>
 </head>
-<body class="d-flex flex-column h-100">
+<body class="d-flex flex-column h-100" data-bs-theme="<?= Yii::$app->params["theme"] ?>">
 <?php $this->beginBody() ?>
-<header id="header">
+<header id="header" data-bs-theme="light">
     <?php
     NavBar::begin([
         'brandLabel' => Yii::$app->name,
@@ -63,6 +63,7 @@ switch (Yii::$app->controller->id) {
             ['label' => Yii::t('app', 'Ideed'), 'url' => ['/ideas/adv-search']],
             ['label' => Yii::t('app', 'Galerii'), 'url' => ['/gallery/index']],
             ['label' => Yii::t('app', 'Muuda keelt'), 'url' => ['/lang']],
+            ['label' => Yii::t('app', ((Yii::$app->params["theme"] ?? "light") == "dark" ? "Hele teema" : 'Tume teema')), 'url' => ['/cthm']],
             ['label' => Yii::t('app', 'Avalehele'), 'url' => '/'],
         ]
     ]);
@@ -76,7 +77,7 @@ switch (Yii::$app->controller->id) {
             }
         ?>
         <?php if ($dsearch) { ?>
-        <input class="form-control flex-shrink-1<?= $mode == "light" ? "text-black border-black" : "" ?> bg-<?= $className ?> me-2" type="search" placeholder="<?= Yii::t('app', 'Märksõna(d)') ?>" aria-label="Keywords" name="q" value="<?= (isset($_GET["q"])?Html::encode($_GET["q"]):"") ?>">
+        <input class="form-control flex-shrink-1<?= $mode == "light" ? "text-black border-black" : "" ?> bg-<?= $className ?> me-2" type="search" placeholder="<?= Yii::t('app', 'Märksõna(d)') ?>" aria-label="Keywords" name="q" value="<?= (isset($_GET["q"])?Html::encode($_GET["q"]):"") ?>" data-bs-theme="light">
         <button class="btn btn-outline-<?= ($mode == "dark"?"light":"dark") ?> text-<?= ($mode == "dark"?"white":"black") ?>" type="submit"><?= Yii::t('app', 'Otsi') ?></button>
         <?php } ?>
     </form>
