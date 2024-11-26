@@ -33,3 +33,123 @@ function DisplayComments($comment, $page, $depth = 0) {
 		}
 	}
 }
+
+/**
+ * @throws \yii\db\Exception
+ */
+function SaveComment($name, $comment, $likes, $page_id, $hide = 0, $heart = 0, $dislikes = 0, $reply = 0, $reply_parent = null, $thread = 1) {
+    try {
+        $q = "INSERT INTO general_comments (NAME, COMMENT, THREAD, REPLY, REPLY_PARENT, PAGE_ID, likes, dislikes, heart, hide) VALUES (:name, :comment, :thread, :reply, :reply_parent, :page_id, :likes, :dislikes, :heart, :hide)";
+        $parameters = [
+            "name" => $name,
+            "comment" => $comment,
+            "thread" => $thread,
+            'reply' => $reply,
+            'reply_parent' => $reply_parent,
+            'page_id' => $page_id,
+            'likes' => $likes,
+            'dislikes' => $dislikes,
+            'heart' => $heart,
+            'hide' => $hide,
+        ];
+        Yii::$app->db->createCommand($q, $parameters)->execute();
+        $q = "SELECT ID FROM general_comments ORDER BY ID DESC LIMIT 1";
+        return Yii::$app->db->createCommand($q)->queryOne()["ID"];
+    } catch (Exception $e) {
+        var_dump($e);
+    }
+}
+
+/**
+ * @throws \yii\db\Exception
+ */
+function CheckComments($url, $page_id) {
+    try {
+        $comments = getAllComments(explode("=", $url)[1]);
+        $threads = $comments[0]["items"];
+        $ret = false;
+        foreach ($threads as $thread) {
+            $id = SaveComment($thread["snippet"]["topLevelComment"]["snippet"]["authorDisplayName"], $thread["snippet"]["topLevelComment"]["snippet"]["textDisplay"], $thread["snippet"]["topLevelComment"]["snippet"]["likeCount"], $page_id);
+            $ret = true;
+            if ($thread["snippet"]["totalReplyCount"] > 0) {
+                $replies = getReplies($thread["snippet"]["topLevelComment"]["id"]);
+                foreach ($replies[0]["items"] as $reply) {
+                    SaveComment($reply["snippet"]["authorDisplayName"], $reply["snippet"]["textDisplay"], $reply["snippet"]["likeCount"], $page_id, 0, 0, 0, 1, $id);
+                }
+            }
+        }
+        return $ret;
+    } catch (Exception $e) {
+        return false;
+    }
+}
+
+function getAllComments($videoId,$pageToken=null,$maxResults=20){
+    $youtube_key = file_exists(Yii::getAlias("@app/API_KEY.DAT")) ? file_get_contents(Yii::getAlias("@app/API_KEY.DAT")) : null;
+    if ($youtube_key == null) {
+        return null;
+    }
+    $url = "https://www.googleapis.com/youtube/v3/commentThreads";
+
+    static $all =[];
+    $params =[
+        'key' => $youtube_key,
+        'part' => 'snippet',
+        'maxResults' => $maxResults,
+        'videoId' => $videoId,
+        'pageToken' => $pageToken
+    ];
+
+    $call = $url.'?'.http_build_query($params);
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL, $call);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+    $output = curl_exec($ch);
+    $data = NULL;
+    $data = json_decode($output,true);
+    $all[] = $data;
+    if(isset($data['nextPageToken'])){
+        if($data['nextPageToken'] != NULL ){
+            $pageToken = $data['nextPageToken'];
+            getAllComments($videoId,$pageToken,$maxResults);
+        }
+    }
+    curl_close($ch);
+    return $all;
+
+
+}
+
+function getReplies($parentId, $pageToken = null, $maxResults = 20) {
+    $youtube_key = file_exists(Yii::getAlias("@app/API_KEY.DAT")) ? file_get_contents(Yii::getAlias("@app/API_KEY.DAT")) : null;
+    if ($youtube_key == null) {
+        return null;
+    }
+    $url = "https://www.googleapis.com/youtube/v3/comments";
+
+    static $all =[];
+    $params =[
+        'key' => $youtube_key,
+        'part' => 'snippet',
+        'maxResults' => $maxResults,
+        'parentId' => $parentId,
+        'pageToken' => $pageToken
+    ];
+
+    $call = $url.'?'.http_build_query($params);
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL, $call);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+    $output = curl_exec($ch);
+    $data = NULL;
+    $data = json_decode($output,true);
+    $all[] = $data;
+    if(isset($data['nextPageToken'])){
+        if($data['nextPageToken'] != NULL ){
+            $pageToken = $data['nextPageToken'];
+            getReplies($parentId,$pageToken,$maxResults);
+        }
+    }
+    curl_close($ch);
+    return $all;
+}

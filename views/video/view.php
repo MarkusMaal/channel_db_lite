@@ -59,7 +59,12 @@ $cross = "<span style=\"display: inline-block; width: 2em;\">&#x274C;</span>";
                     }
                 ?>
             </p>
-            <?php 
+            <?php
+                if (!$comments) {
+                    if (CheckComments($video->URL, $video->ID)) {
+                        echo "<script>location.reload();</script>";
+                    }
+                }
                 if ($comments) {
                     echo '<h2 class="mt-3">'. Yii::t("app", "Kommentaarid") .'</h2>';
                     foreach ($comments as $comment) {

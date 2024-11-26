@@ -45,3 +45,5 @@ tests/_support/_generated
 /web/gallery_
 /web/thumbs
 /web/stream
+
+API_KEY.DAT
