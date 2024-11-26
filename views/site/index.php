@@ -7,7 +7,7 @@ require_once(Yii::getAlias("@app/helpers/InitLang.php"));
 $this->title = Yii::t('site', 'Kanali andmebaas');
 ?>
 <div class="site-index">
-    <div class="jumbotron bg-light p-5 mt-5 mb-5 d-flex">
+    <div class="jumbotron bg-<?= Yii::$app->params["theme"] ?> p-5 mt-5 mb-5 d-flex">
     <img class="me-5" src="<?= Url::to("@web/channel_db_lite.svg", true) ?>">
         <div>
         <h1 class="display-5"><?= Yii::t('app', 'Kanali andmebaas Lite') ?></h1>
