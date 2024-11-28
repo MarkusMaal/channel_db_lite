@@ -30,6 +30,7 @@ $this->title = Yii::t('playlist', 'Esitusloendid') . (isset($_GET["page"])?" - "
     <a href="<?= Url::to(["/site/sync"]) ?>" class="btn btn-blurple"><?= Yii::t("playlist", "Sünkroniseerimine") ?></a>
 </div>
 <p class='text-center'><?= Yii::t('app', 'Leiti {0} vastet.', $pagination->totalCount) ?></p>
+<?php if ($success) { Yii::$app->session->setFlash('success', Yii::t("playlist", 'Sünkroniseerimine õnnestus')); } ?>
 <div class='row mx-auto'>
     <?php foreach ($playlists as $playlist): ?>
         <div class='col'>

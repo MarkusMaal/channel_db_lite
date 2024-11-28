@@ -9,10 +9,11 @@ use yii\web\Controller;
 class PlaylistController extends Controller
 {
     // all playlists
-    public function actionIndex()
+    public function actionIndex($success = false): string
     {
         $playlists = Playlists::find();
         $gallery = Gallery::find();
+        $_GET["success"] = false;
         $pagination = new Pagination([
             'defaultPageSize' => $_COOKIE["results"]??20,
             'totalCount' => $playlists->count(),
@@ -22,6 +23,7 @@ class PlaylistController extends Controller
                 ->limit($pagination->limit)->all(),
             'gallery' => $gallery,
             'pagination' => $pagination,
+            'success' => $success,
         ]);
     }
 

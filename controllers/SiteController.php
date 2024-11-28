@@ -118,7 +118,7 @@ class SiteController extends Controller
                 }
             }
         }
-        return $this->redirect(Yii::getAlias("@web/playlist/index"));
+        return $this->redirect(Yii::getAlias("@web/playlist/index") . "?success=1");
     }
 
     public function getPlaylists($channelId, $refreshToken = null) {
