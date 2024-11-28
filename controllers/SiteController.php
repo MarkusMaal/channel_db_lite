@@ -2,7 +2,10 @@
 
 namespace app\controllers;
 
+use app\models\Gallery;
+use app\models\Playlists;
 use Yii;
+use yii\db\Exception;
 use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\Response;
@@ -68,6 +71,89 @@ class SiteController extends Controller
     public function actionHello()
     {
         return $this->render('hello');
+    }
+
+    public function actionSync() {
+
+        $query = Gallery::find();
+        foreach ($query->all() as $channel) {
+            $full_uri = $channel->getAttributes()["URL"];
+            $channel_id = str_replace("https://www.youtube.com/channel/", "", $full_uri);
+            if (($full_uri != $channel_id) && ($channel["Kustutatud"] != 1)) {
+                $playlists = $this->getPlaylists($channel_id);
+                foreach ($playlists as $response) {
+                    if (($response["kind"] ?? "null") == "youtube#playlistListResponse") {
+                        foreach ($response["items"] as $entry) {
+                            if ((int)$channel->getAttributes()["ID"] == 1) {
+                                continue;
+                            }
+                            $playlist = new Playlists();
+                            $thumbs = $entry["snippet"]["thumbnails"];
+                            $thumb_url = "";
+                            $types = ["maxres", "high", "medium", "standard", "default"];
+                            foreach ($types as $type) {
+                                if (isset($thumbs[$type])) {
+                                    $thumb_url = $thumbs[$type]["url"];
+                                    break;
+                                }
+                            }
+                            $desc = $entry["snippet"]["description"];
+                            $playlist->setAttribute("YT_ID", $entry["id"]);
+                            $playlist->setAttribute("TITLE", $entry["snippet"]["title"]);
+                            $playlist->setAttribute("DESCRIPTION", (!empty($desc) ? $desc : "N/A"));
+                            $playlist->setAttribute("THUMBNAIL", $thumb_url);
+                            $playlist->setAttribute("GALLERY_ID", $channel->getAttributes()["ID"]);
+                            try {
+                                if ($playlist->validate()) {
+                                    $playlist->save();
+                                } else {
+                                    var_dump($playlist->getErrors());
+                                    die();
+                                }
+                            } catch (Exception $e) {
+                                // ignored
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return $this->redirect("/playlist/index");
+    }
+
+    public function getPlaylists($channelId, $refreshToken = null) {
+        $youtube_key = file_exists(Yii::getAlias("@app/API_KEY.DAT")) ? file_get_contents(Yii::getAlias("@app/API_KEY.DAT")) : null;
+        if ($youtube_key == null) {
+            return null;
+        }
+        $url = "https://www.googleapis.com/youtube/v3/playlists";
+
+        static $all =[];
+        $params =[
+            'key' => $youtube_key,
+            'channelId' => $channelId,
+            'part' => "snippet,id",
+            'order' => "date",
+            'maxResults' => 20,
+            'pageToken' => $refreshToken,
+        ];
+
+        $call = $url.'?'.http_build_query($params);
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $call);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        $output = curl_exec($ch);
+        $data = NULL;
+        $data = json_decode($output,true);
+        $all[] = $data;
+        if(isset($data['nextPageToken'])){
+            if($data['nextPageToken'] != NULL ){
+                $pageToken = $data['nextPageToken'];
+                $all[] = $this->getPlaylists($channelId,$pageToken);
+            }
+        }
+        curl_close($ch);
+        return $all;
     }
 
     /**
