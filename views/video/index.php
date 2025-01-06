@@ -13,6 +13,10 @@ $baseurl = str_replace($_SERVER["DOCUMENT_ROOT"], "", Yii::$app->basePath);
 if ($error == 1) {
     echo Yii::$app->session->setFlash('danger', Yii::t('app', 'Tundmatu veerg: {0}', [Html::encode($_GET["sort"]??"")]));
 }
+if (isset($_COOKIE["force_reload2"])) {
+    setcookie("force_reload2", "", time() - 3600);
+    setcookie("force_reload", "1", time() + 3600);
+}
 ?>
 <div class="mx-auto text-center">
 <?php

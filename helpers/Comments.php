@@ -42,7 +42,7 @@ function SaveComment($name, $comment, $likes, $page_id, $hide = 0, $heart = 0, $
         $q = "INSERT INTO general_comments (NAME, COMMENT, THREAD, REPLY, REPLY_PARENT, PAGE_ID, likes, dislikes, heart, hide) VALUES (:name, :comment, :thread, :reply, :reply_parent, :page_id, :likes, :dislikes, :heart, :hide)";
         $parameters = [
             "name" => $name,
-            "comment" => $comment,
+            "comment" => str_replace("@@", "@", str_replace("<br>", "\n", html_entity_decode($comment))),
             "thread" => $thread,
             'reply' => $reply,
             'reply_parent' => $reply_parent,
@@ -56,7 +56,8 @@ function SaveComment($name, $comment, $likes, $page_id, $hide = 0, $heart = 0, $
         $q = "SELECT ID FROM general_comments ORDER BY ID DESC LIMIT 1";
         return Yii::$app->db->createCommand($q)->queryOne()["ID"];
     } catch (Exception $e) {
-        var_dump($e);
+        $q = "SELECT ID FROM general_comments ORDER BY ID DESC LIMIT 1";
+        return Yii::$app->db->createCommand($q)->queryOne()["ID"];
     }
 }
 
@@ -68,6 +69,13 @@ function CheckComments($url, $page_id) {
         $comments = getAllComments(explode("=", $url)[1]);
         $threads = $comments[0]["items"];
         $ret = false;
+        if (count($comments) > 0) {
+            $q1 = "DELETE FROM general_comments WHERE THREAD = 1 AND PAGE_ID = :page_id";
+            $parameters = [
+                'page_id' => $page_id,
+            ];
+            Yii::$app->db->createCommand($q1, $parameters)->execute();
+        }
         foreach ($threads as $thread) {
             $id = SaveComment($thread["snippet"]["topLevelComment"]["snippet"]["authorDisplayName"], $thread["snippet"]["topLevelComment"]["snippet"]["textDisplay"], $thread["snippet"]["topLevelComment"]["snippet"]["likeCount"], $page_id);
             $ret = true;
