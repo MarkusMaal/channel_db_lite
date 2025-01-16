@@ -127,12 +127,20 @@ class VideoController extends Controller
             $www_meta_path = Yii::getAlias("@web/json") . "/" . $video->getAttributes()["ID"] . ".json";
             $www_ensub_path = Yii::getAlias("@web/stream") . "/" . $video->getAttributes()["ID"] . ".en.ass";
             $www_etsub_path = Yii::getAlias("@web/stream") . "/" . $video->getAttributes()["ID"] . ".et.ass";
+
+
+            $ensrt_path = str_replace(".en.ass", ".en.srt", $ensub_path);
+            $etsrt_path = str_replace(".et.ass", ".et.srt", $ensub_path);
+            $www_ensrt_path = str_replace(".en.ass", ".en.srt", $www_ensub_path);
+            $www_etsrt_path = str_replace(".et.ass", ".et.srt", $www_ensub_path);
             
             $video["has_thumbnail"] = file_exists($thumb_path) ? $www_thumb_path : "N/A";
             $video["local_stream"] = file_exists($vid_path) ? $www_vid_path : "N/A";
             $video["ytdlp_meta"] = file_exists($meta_path) ? $www_meta_path : "N/A";
             $video["est_subs"] = file_exists($etsub_path) ? $www_etsub_path : "N/A";
             $video["eng_subs"] = file_exists($ensub_path) ? $www_ensub_path : "N/A";
+            if (file_exists($ensrt_path)) { $video["eng_subs"] = $www_ensrt_path; }
+            if (file_exists($etsrt_path)) { $video["est_subs"] = $www_etsrt_path; }
         }
         switch ($format) {
             case "csv":
