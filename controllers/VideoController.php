@@ -111,13 +111,28 @@ class VideoController extends Controller
         ])->all();
         $cols[] = "has_thumbnail";
         $cols[] = "local_stream";
+        $cols[] = "ytdlp_meta";
+        $cols[] = "est_subs";
+        $cols[] = "eng_subs";
         foreach ($videos as $video) {
+            
             $thumb_path = Yii::getAlias("@app/web/thumbs") . "/" . $video->getAttributes()["ID"] . ".jpg";
             $vid_path = Yii::getAlias("@app/web/stream") . "/" . $video->getAttributes()["ID"] . ".mp4";
+            $meta_path = Yii::getAlias("@app/web/json") . "/" . $video->getAttributes()["ID"] . ".json";
+            $ensub_path = Yii::getAlias("@app/web/stream") . "/" . $video->getAttributes()["ID"] . ".en.ass";
+            $etsub_path = Yii::getAlias("@app/web/stream") . "/" . $video->getAttributes()["ID"] . ".et.ass";
+
             $www_thumb_path = Yii::getAlias("@web/thumbs") . "/" . $video->getAttributes()["ID"] . ".jpg";
             $www_vid_path = Yii::getAlias("@web/stream") . "/" . $video->getAttributes()["ID"] . ".mp4";
+            $www_meta_path = Yii::getAlias("@web/json") . "/" . $video->getAttributes()["ID"] . ".json";
+            $www_ensub_path = Yii::getAlias("@web/stream") . "/" . $video->getAttributes()["ID"] . ".en.ass";
+            $www_etsub_path = Yii::getAlias("@web/stream") . "/" . $video->getAttributes()["ID"] . ".et.ass";
+            
             $video["has_thumbnail"] = file_exists($thumb_path) ? $www_thumb_path : "N/A";
             $video["local_stream"] = file_exists($vid_path) ? $www_vid_path : "N/A";
+            $video["ytdlp_meta"] = file_exists($meta_path) ? $www_meta_path : "N/A";
+            $video["est_subs"] = file_exists($etsub_path) ? $www_etsub_path : "N/A";
+            $video["eng_subs"] = file_exists($ensub_path) ? $www_ensub_path : "N/A";
         }
         switch ($format) {
             case "csv":
