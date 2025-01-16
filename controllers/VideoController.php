@@ -137,8 +137,15 @@ class VideoController extends Controller
             $video["has_thumbnail"] = file_exists($thumb_path) ? $www_thumb_path : "N/A";
             $video["local_stream"] = file_exists($vid_path) ? $www_vid_path : "N/A";
             $video["ytdlp_meta"] = file_exists($meta_path) ? $www_meta_path : "N/A";
-            $video["est_subs"] = file_exists($etsub_path) ? $www_etsub_path : (file_exists($etsrt_path) ? $www_etsrt_path : "N/A");
-            $video["eng_subs"] = file_exists($ensub_path) ? $www_ensub_path : (file_exists($ensrt_path) ? $www_ensrt_path : "N/A");
+            $video["est_subs"] = (file_exists($etsub_path) ? $www_etsub_path : (file_exists($etsrt_path) ? $www_etsrt_path : "N/A"));
+            $video["eng_subs"] = (file_exists($ensub_path) ? $www_ensub_path : (file_exists($ensrt_path) ? $www_ensrt_path : "N/A"));
+            if (!str_contains($video["est_subs"], ".et")) {
+                $video["est_subs"] = "N/A";
+            }
+            if (!str_contains($video["eng_subs"], ".en")) {
+                $video["eng_subs"] = "N/A";
+            }
+            
         }
         switch ($format) {
             case "csv":
