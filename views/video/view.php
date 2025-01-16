@@ -34,6 +34,9 @@ $cross = "<span style=\"display: inline-block; width: 2em;\">&#x274C;</span>";
             }
             if ($video->URL != "N/A") { echo '<a class="btn btn-blurple mx-2" target="_blank" href="'.Html::encode($video->URL).'">'.Yii::t('videos', 'Ava video ({0})', ['YouTube']).'</a>'; }
             if ($video->OdyseeURL != "N/A") { echo '<a class="btn btn-blurple mx-2" target="_blank" href="'.Html::encode($video->OdyseeURL).'">'.Yii::t('videos', 'Ava video ({0})', ['Odysee']).'</a>'; }
+            if (file_exists($_SERVER["DOCUMENT_ROOT"] . Yii::getAlias("@web/json/" . $video->ID . ".json"))) {
+                echo '<a class="btn btn-blurple mx-2" target="_blank" href="'. Url::to("@web/json/".$video->ID.".json", true) . '">'.Yii::t('videos', 'JSON dump').'</a>';
+            }
             ?>
             <a class="btn btn-blurple mx-2" target="_blank" onclick="window.history.back();"><?= Yii::t('app', 'Tagasi'); ?></a>
             <br>
