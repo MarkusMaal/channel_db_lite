@@ -114,6 +114,7 @@ class VideoController extends Controller
         $cols[] = "ytdlp_meta";
         $cols[] = "est_subs";
         $cols[] = "eng_subs";
+        $vexts = ["mp4", "mov", "mkv", "wmv"];
         foreach ($videos as $video) {
             
             $thumb_path = Yii::getAlias("@app/web/thumbs") . "/" . $video->getAttributes()["ID"] . ".jpg";
@@ -135,7 +136,18 @@ class VideoController extends Controller
             $www_etsrt_path = str_replace(".et.ass", ".et.srt", $www_ensub_path);
             
             $video["has_thumbnail"] = file_exists($thumb_path) ? $www_thumb_path : "N/A";
-            $video["local_stream"] = file_exists($vid_path) ? $www_vid_path : "N/A";
+            $found = false;
+            foreach ($vexts as $ext) {
+                $np = str_replace(".mp4", ".".$ext, $vid_path);
+                $wnp = str_replace(".mp4", ".".$ext, $www_vid_path);
+                if (file_exists($np)) {
+                    $video["local_stream"] = $wnp;
+                    $found = true;
+                }
+            }
+            if (!$found) {
+                $video["local_stream"] = "N/A";
+            }
             $video["ytdlp_meta"] = file_exists($meta_path) ? $www_meta_path : "N/A";
             $video["est_subs"] = (file_exists($etsub_path) ? $www_etsub_path : (file_exists($etsrt_path) ? $www_etsrt_path : "N/A"));
             $video["eng_subs"] = (file_exists($ensub_path) ? $www_ensub_path : (file_exists($ensrt_path) ? $www_ensrt_path : "N/A"));
