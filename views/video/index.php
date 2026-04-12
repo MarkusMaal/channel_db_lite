@@ -165,7 +165,7 @@ echo Filters::DisplayFilters($filterset);
                     <?php
                         if (!file_exists(Yii::getAlias("@app/web/thumbs/" . $video->ID . ".jpg"))) {
                             $img = Yii::getAlias("@app/web/thumbs/{$video->ID}.jpg");
-                            $url = 'http://img.youtube.com/vi/' . str_replace('https://www.youtube.com/watch?v=', '', $video->URL) . '/maxresdefault.jpg';
+                            $url = 'http://img.youtube.com/vi/' . str_replace('https://www.youtube.com/watch?v=', '', $video->URL) . '/1.jpg';
                             $ch = curl_init();
                             curl_setopt($ch, CURLOPT_URL, $url); 
                             curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); 
@@ -173,7 +173,7 @@ echo Filters::DisplayFilters($filterset);
                             $http_status = curl_getinfo($ch, CURLINFO_HTTP_CODE);
                             if ($http_status == "404") {
                                 curl_close($ch);
-                                $url = 'http://img.youtube.com/vi/' . str_replace('https://www.youtube.com/watch?v=', '', $video->URL) . '/hqdefault.jpg';
+                                $url = 'http://img.youtube.com/vi/' . str_replace('https://www.youtube.com/watch?v=', '', $video->URL) . '/2.jpg';
                                 $ch = curl_init();
                                 curl_setopt($ch, CURLOPT_URL, $url); 
                                 curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
@@ -181,7 +181,7 @@ echo Filters::DisplayFilters($filterset);
                                 $http_status = curl_getinfo($ch, CURLINFO_HTTP_CODE);
                                 curl_close($ch);
                                 if ($http_status == "404") {
-                                    $url = 'http://img.youtube.com/vi/' . str_replace('https://www.youtube.com/watch?v=', '', $video->URL) . '/sddefault.jpg';
+                                    $url = 'http://img.youtube.com/vi/' . str_replace('https://www.youtube.com/watch?v=', '', $video->URL) . '/3.jpg';
                                     $ch = curl_init();
                                     curl_setopt($ch, CURLOPT_URL, $url); 
                                     curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
