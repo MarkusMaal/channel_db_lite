@@ -26,7 +26,7 @@ function DisplayComments($comment, $page, $depth = 0) {
 	echo '</div>';
 	echo '</div>';
     // SELECT * FROM general_comments WHERE PAGE_ID = $page AND THREAD = $thread AND REPLY = 1 AND REPLY_PARENT = {$comment["ID"]}
-    $replies = GeneralComments::find()->where(['PAGE_ID' => $page])->andWhere(["THREAD" => "1"])->andWhere(["REPLY" => "1"])->andWhere(["REPLY_PARENT" => $comment["ID"]])->all();
+    $replies = GeneralComments::find()->where(['PAGE_ID' => $page])->andWhere(["THREAD" => "1"])->andWhere(["REPLY" => "1"])->andWhere(["REPLY_PARENT" => $comment["id"]])->all();
 	if ($replies) {
 		foreach ($replies as $rep) {
 			DisplayComments($rep, $page, $depth + 1);
@@ -53,11 +53,11 @@ function SaveComment($name, $comment, $likes, $page_id, $hide = 0, $heart = 0, $
             'hide' => $hide,
         ];
         Yii::$app->db->createCommand($q, $parameters)->execute();
-        $q = "SELECT ID FROM general_comments ORDER BY ID DESC LIMIT 1";
-        return Yii::$app->db->createCommand($q)->queryOne()["ID"];
+        $q = "SELECT id FROM general_comments ORDER BY id DESC LIMIT 1";
+        return Yii::$app->db->createCommand($q)->queryOne()["id"];
     } catch (Exception $e) {
-        $q = "SELECT ID FROM general_comments ORDER BY ID DESC LIMIT 1";
-        return Yii::$app->db->createCommand($q)->queryOne()["ID"];
+        $q = "SELECT id FROM general_comments ORDER BY id DESC LIMIT 1";
+        return Yii::$app->db->createCommand($q)->queryOne()["id"];
     }
 }
 

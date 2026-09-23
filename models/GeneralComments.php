@@ -52,7 +52,7 @@ class GeneralComments extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'ID' => 'ID',
+            'id' => 'ID',
             'NAME' => 'Name',
             'COMMENT' => 'Comment',
             'THREAD' => 'Thread',
@@ -73,7 +73,7 @@ class GeneralComments extends \yii\db\ActiveRecord
      */
     public function getClientRatings()
     {
-        return $this->hasMany(ClientRatings::class, ['CID' => 'ID']);
+        return $this->hasMany(ClientRatings::class, ['CID' => 'id']);
     }
 
     /**
@@ -83,7 +83,7 @@ class GeneralComments extends \yii\db\ActiveRecord
      */
     public function getCommentManagers()
     {
-        return $this->hasMany(CommentManagers::class, ['cid' => 'ID']);
+        return $this->hasMany(CommentManagers::class, ['cid' => 'id']);
     }
 
     /**
@@ -93,6 +93,6 @@ class GeneralComments extends \yii\db\ActiveRecord
      */
     public function getSentEmails()
     {
-        return $this->hasMany(SentEmails::class, ['COMMENT_ID' => 'ID']);
+        return $this->hasMany(SentEmails::class, ['COMMENT_ID' => 'id']);
     }
 }
